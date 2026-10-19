@@ -1,3 +1,7 @@
+import { useParams } from "react-router-dom";
+
 export default function PlaylistDetailPage() {
-  return <div>PlaylistDetailPage</div>;
+  const { id } = useParams();
+
+  return <div>PlaylistDetailPage {id}</div>;
 }
