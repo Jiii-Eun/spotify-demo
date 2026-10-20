@@ -1,5 +1,6 @@
 import AddIcon from "@mui/icons-material/Add";
-import { Link, styled } from "@mui/material";
+import { styled } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const SidebarHeader = styled("div")({
   display: "flex",
@@ -37,7 +38,7 @@ const SidebarContentDescription = styled("div")(({ theme }) => ({
   marginBottom: 8,
 }));
 
-const CreatePlaylistLink = styled(Link)(({ theme }) => ({
+const CreatePlaylistLink = styled(NavLink)(({ theme }) => ({
   alignSelf: "flex-start",
   padding: "8px 16px",
   borderRadius: 999,
@@ -82,9 +83,7 @@ export default function Sidebar() {
         <SidebarContentDescription>
           어렵지 않아요. 저희가 도와드릴게요.
         </SidebarContentDescription>
-        <CreatePlaylistLink href="/login">
-          플레이리스트 만들기
-        </CreatePlaylistLink>
+        <CreatePlaylistLink to="/login">플레이리스트 만들기</CreatePlaylistLink>
       </SidebarContent>
     </div>
   );

@@ -1,5 +1,6 @@
-import { InputBase, Link, styled } from "@mui/material";
+import { InputBase, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { NavLink } from "react-router-dom";
 
 const HeaderContainer = styled("div")({
   height: "100%",
@@ -42,14 +43,21 @@ const SearchBar = styled("div")(({ theme }) => ({
   },
 }));
 
+const SearchLink = styled(NavLink)(({ theme }) => ({
+  fontSize: 16,
+  width: 38,
+  color: "#b3b3b3",
+  "&:hover": { color: theme.palette.primary.main },
+}));
+
 export default function Header() {
   return (
     <HeaderContainer>
       <HeaderLeft>
         <h1 style={{ margin: 0 }}>
-          <Link href="/">
+          <NavLink to="/">
             <Logo src="/logo.png" alt="logo" />
-          </Link>
+          </NavLink>
         </h1>
         <SearchBar>
           <SearchIcon
@@ -62,19 +70,17 @@ export default function Header() {
             placeholder="원하는 음악을 검색하세요"
             style={{ textOverflow: "ellipsis", flex: 1 }}
           />
-          <div style={{ color: "#b3b3b3" }}>|</div>
-          <Link
-            href="/search"
-            sx={(theme) => ({
-              fontSize: 16,
-              width: 38,
-              textDecoration: "none",
+          <div
+            style={{
               color: "#b3b3b3",
-              "&:hover": { color: theme.palette.primary.main },
-            })}
+              display: "flex",
+              alignItems: "center",
+              lineHeight: 1,
+            }}
           >
-            검색
-          </Link>
+            |
+          </div>
+          <SearchLink to="/search">검색</SearchLink>
         </SearchBar>
       </HeaderLeft>
     </HeaderContainer>
