@@ -15,46 +15,64 @@ declare module "@mui/material/styles" {
 
 const brandPink = "#f5228e";
 const brandSky = "#13c2f9";
+const brandRed = "#f81919";
+const brandOrange = "#ff8000";
+const brandGreen = "#27b621";
+
+const brandWhite = "#fff";
+
+const brandBlack = "#000";
+const brandBlack800 = "#121212";
+
+const brandGray500 = "#808080";
+const brandGray400 = "#a3a3a3";
+const brandGray300 = "#b3b3b3";
+const brandGray200 = "#d3d3d3";
+const brandGray100 = "#f3f3f3";
+
 const primaryGradient = `linear-gradient(135deg, ${brandPink} 0%, ${brandSky} 100%)`;
 
 export default function theme() {
   return createTheme({
+    // 색상 팔레트
     palette: {
       mode: "dark",
       primary: {
         main: brandPink,
       },
       secondary: {
-        main: "#ffffff",
+        main: brandWhite,
       },
       error: {
-        main: "#f81919",
+        main: brandRed,
       },
       warning: {
-        main: "#ff8000",
+        main: brandOrange,
       },
       success: {
-        main: "#27b621",
+        main: brandGreen,
       },
       info: {
         main: brandSky,
       },
       background: {
-        default: "#000",
-        paper: "#121212",
+        default: brandBlack,
+        paper: brandBlack800,
       },
       text: {
-        primary: "#fff",
-        secondary: "#b3b3b3",
+        primary: brandWhite,
+        secondary: brandGray300,
       },
       action: {
-        hover: "#282828",
-        active: "#333",
+        hover: brandGray200,
+        active: brandGray300,
       },
     },
+    // 그라데이션
     gradients: {
       primary: primaryGradient,
     },
+    // 폰트
     typography: {
       fontFamily: "Roboto, Arial, sans-serif",
       h1: {
@@ -71,6 +89,7 @@ export default function theme() {
         fontSize: "0.6875rem",
       },
     },
+    // 컴포넌트 스타일
     components: {
       MuiButton: {
         styleOverrides: {
@@ -78,27 +97,35 @@ export default function theme() {
             borderRadius: "30px",
             textTransform: "none",
           },
-          containedPrimary: {
-            backgroundImage: primaryGradient,
-            color: "#ffffff",
-            "&:hover": {
-              backgroundImage: primaryGradient,
-              filter: "brightness(1.08)",
-            },
-          },
-          containedSecondary: {
-            backgroundColor: "#ffffff",
-            color: "#000000",
-            "&:hover": {
-              backgroundColor: "#e0e0e0",
-            },
-          },
           sizeLarge: {
             padding: "8px 32px",
             fontWeight: 700,
             fontSize: "16px",
           },
         },
+        variants: [
+          {
+            props: { variant: "contained", color: "primary" },
+            style: {
+              backgroundImage: primaryGradient,
+              color: brandWhite,
+              "&:hover": {
+                backgroundImage: primaryGradient,
+                filter: "brightness(1.08)",
+              },
+            },
+          },
+          {
+            props: { variant: "contained", color: "secondary" },
+            style: {
+              backgroundColor: brandWhite,
+              color: brandBlack,
+              "&:hover": {
+                backgroundColor: "#e0e0e0",
+              },
+            },
+          },
+        ],
       },
     },
   });
