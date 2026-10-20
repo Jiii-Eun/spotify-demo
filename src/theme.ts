@@ -4,11 +4,13 @@ declare module "@mui/material" {
   interface Theme {
     gradients: {
       primary: string;
+      secondary: string;
     };
   }
   interface ThemeOptions {
     gradients?: {
       primary?: string;
+      secondary?: string;
     };
   }
 }
@@ -22,15 +24,36 @@ const brandGreen = "#27b621";
 const brandWhite = "#fff";
 
 const brandBlack = "#000";
-const brandBlack800 = "#121212";
 
-const brandGray500 = "#808080";
-const brandGray400 = "#a3a3a3";
+const brandBlack100 = "#3e3e3e";
+const brandBlack200 = "#333333";
+const brandBlack300 = "#2a2a2a";
+const brandBlack400 = "#242424";
+const brandBlack500 = "#1f1f1f";
+const brandBlack600 = "#1a1a1a";
+const brandBlack700 = "#181818";
+const brandBlack800 = "#121212";
+const brandBlack900 = "#0a0a0a";
+
 const brandGray300 = "#b3b3b3";
 const brandGray200 = "#d3d3d3";
-const brandGray100 = "#f3f3f3";
 
 const primaryGradient = `linear-gradient(135deg, ${brandPink} 0%, ${brandSky} 100%)`;
+const pinkWhiteGradient = `linear-gradient(135deg, ${brandPink} 0%, ${brandWhite} 100%)`;
+
+declare module "@mui/material/styles" {
+  interface TypeBackground {
+    black100: string;
+    black200: string;
+    black300: string;
+    black400: string;
+    black500: string;
+    black600: string;
+    black700: string;
+    black800: string;
+    black900: string;
+  }
+}
 
 export default function theme() {
   return createTheme({
@@ -58,6 +81,15 @@ export default function theme() {
       background: {
         default: brandBlack,
         paper: brandBlack800,
+        black100: brandBlack100,
+        black200: brandBlack200,
+        black300: brandBlack300,
+        black400: brandBlack400,
+        black500: brandBlack500,
+        black600: brandBlack600,
+        black700: brandBlack700,
+        black800: brandBlack800,
+        black900: brandBlack900,
       },
       text: {
         primary: brandWhite,
@@ -71,6 +103,7 @@ export default function theme() {
     // 그라데이션
     gradients: {
       primary: primaryGradient,
+      secondary: pinkWhiteGradient,
     },
     // 폰트
     typography: {

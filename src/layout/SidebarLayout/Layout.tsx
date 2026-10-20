@@ -1,7 +1,7 @@
-import { styled } from "@mui/material";
+import { alpha, styled } from "@mui/material";
 import { Outlet } from "react-router-dom";
-
-const LayoutContainer = styled("div")({});
+import Header from "../../common/components/Header/Header";
+import Sidebar from "../../common/components/Sidebar/Sidebar";
 
 const ContentContainer = styled("div")({
   display: "flex",
@@ -11,17 +11,54 @@ const ContentContainer = styled("div")({
   margin: "8px",
 });
 
-const SearchbarContainer = styled("div")({});
-const SidebarContainer = styled("div")(({ theme }) => ({}));
+const HeaderContainer = styled("div")({
+  height: "64px",
+  width: "100%",
+  padding: "8px 8px 0 8px",
+});
+
+const SidebarContainer = styled("div")(({ theme }) => ({
+  flex: "1",
+  backgroundColor: theme.palette.background.paper,
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
+}));
+
+const ContentContainerOutlet = styled("div")(({ theme }) => ({
+  flex: "3.5",
+  background: `linear-gradient(
+    176deg,
+    ${alpha(theme.palette.primary.main, 0.1)} 0%,
+    ${theme.palette.background.paper} 18%
+  )`,
+}));
+
+const ContentBox = styled("div")(({ theme }) => ({
+  minWidth: "0",
+  width: "100%",
+  padding: "8px",
+  color: theme.palette.text.primary,
+}));
 
 export default function Layout() {
   return (
-    <LayoutContainer className="layout-container">
-      <SearchbarContainer>searchbar</SearchbarContainer>
+    <div>
+      <HeaderContainer>
+        <Header />
+      </HeaderContainer>
       <ContentContainer>
-        <SidebarContainer>sidebar</SidebarContainer>
-        <Outlet />
+        <SidebarContainer>
+          <ContentBox>
+            <Sidebar />
+          </ContentBox>
+        </SidebarContainer>
+        <ContentContainerOutlet>
+          <ContentBox>
+            <Outlet />
+          </ContentBox>
+        </ContentContainerOutlet>
       </ContentContainer>
-    </LayoutContainer>
+    </div>
   );
 }

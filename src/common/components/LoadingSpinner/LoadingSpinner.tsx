@@ -1,6 +1,8 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import "./LoadingSpinner.css";
 
+// ❌ 배경색이 흰색임. 투명으로 바꿔야함
+
 export default function LoadingSpinner() {
   return (
     <div>
