@@ -1,8 +1,8 @@
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { lazy, Suspense } from "react";
-import SidebarLayout from "./layout/SidebarLayout";
+import { Route, Routes } from "react-router-dom";
 import LoadingSpinner from "./common/components/LoadingSpinner/LoadingSpinner";
+import Layout from "./layout/SidebarLayout/Layout";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SearchPage = lazy(() => import("./pages/SearchPage/SearchPage"));
@@ -42,7 +42,7 @@ function App() {
     <>
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
-          <Route element={<SidebarLayout />}>
+          <Route element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="search/:query" element={<SearchResultPage />} />
