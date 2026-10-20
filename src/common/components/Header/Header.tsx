@@ -1,4 +1,4 @@
-import { alpha, InputBase, Link, styled } from "@mui/material";
+import { InputBase, Link, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 const HeaderContainer = styled("div")({
@@ -34,11 +34,11 @@ const SearchBar = styled("div")(({ theme }) => ({
   borderRadius: "999px",
   "&:hover": {
     backgroundColor: theme.palette.background.black300,
-    border: `1px solid ${alpha(theme.palette.secondary.main, 0.5)}`,
+    border: `1px solid ${theme.palette.background.black200}`,
   },
   "&:focus-within": {
     backgroundColor: theme.palette.background.black300,
-    border: `2px solid ${theme.palette.secondary.main}`,
+    border: `1px solid ${theme.palette.secondary.main}`,
   },
 }));
 

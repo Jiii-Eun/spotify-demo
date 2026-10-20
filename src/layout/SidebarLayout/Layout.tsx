@@ -19,6 +19,7 @@ const HeaderContainer = styled("div")({
 
 const SidebarContainer = styled("div")(({ theme }) => ({
   flex: "1",
+  minWidth: 226,
   backgroundColor: theme.palette.background.paper,
   [theme.breakpoints.down("sm")]: {
     display: "none",
@@ -27,6 +28,7 @@ const SidebarContainer = styled("div")(({ theme }) => ({
 
 const ContentContainerOutlet = styled("div")(({ theme }) => ({
   flex: "3.5",
+  minWidth: 0,
   background: `linear-gradient(
     176deg,
     ${alpha(theme.palette.primary.main, 0.1)} 0%,
