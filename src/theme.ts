@@ -115,6 +115,9 @@ export default function theme() {
       h2: {
         fontSize: "1rem",
       },
+      h3: {
+        fontSize: "1.5rem",
+      },
       body1: {
         fontSize: "14px",
       },

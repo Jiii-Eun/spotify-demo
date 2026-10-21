@@ -1,7 +1,7 @@
 import { alpha, styled } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Header from "../../common/components/Header/Header";
-import Sidebar from "../../common/components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 const ContentContainer = styled("div")({
   display: "flex",
@@ -55,6 +55,7 @@ export default function Layout() {
             <Sidebar />
           </ContentBox>
         </SidebarContainer>
+
         <ContentContainerOutlet>
           <ContentBox>
             <Outlet />

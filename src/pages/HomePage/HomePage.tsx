@@ -1,3 +1,18 @@
+import MusicCardSection from "./components/MusicCardSection";
+import { styled } from "@mui/material/styles";
+
+const MusicCardSectionContainer = styled("div")(({ theme }) => ({
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  backgroundColor: theme.palette.background.paper,
+}));
+
 export default function HomePage() {
-  return <div>HomePage</div>;
+  return (
+    <MusicCardSectionContainer>
+      <MusicCardSection title="인기 상승 곡" />
+    </MusicCardSectionContainer>
+  );
 }

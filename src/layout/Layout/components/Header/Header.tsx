@@ -1,20 +1,28 @@
 import { InputBase, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { NavLink } from "react-router-dom";
+import LoginButton from "./LoginButton";
 
-const HeaderContainer = styled("div")({
+const HeaderContainer = styled("div")(({ theme }) => ({
   height: "100%",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-});
+  [theme.breakpoints.down("sm")]: {
+    gap: 4,
+  },
+}));
 
-const HeaderLeft = styled("div")({
+const HeaderLeft = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   gap: 48,
   marginLeft: 16,
-});
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: 8,
+    gap: 8,
+  },
+}));
 
 const Logo = styled("img")(({ theme }) => ({
   width: 42,
@@ -83,6 +91,7 @@ export default function Header() {
           <SearchLink to="/search">검색</SearchLink>
         </SearchBar>
       </HeaderLeft>
+      <LoginButton />
     </HeaderContainer>
   );
 }

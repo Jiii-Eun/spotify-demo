@@ -2,7 +2,7 @@ import "./App.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingSpinner from "./common/components/LoadingSpinner/LoadingSpinner";
-import Layout from "./layout/SidebarLayout/Layout";
+import Layout from "./layout/Layout/Layout";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SearchPage = lazy(() => import("./pages/SearchPage/SearchPage"));

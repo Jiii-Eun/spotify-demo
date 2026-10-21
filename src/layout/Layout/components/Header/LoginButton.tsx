@@ -1,0 +1,63 @@
+import { Button, styled } from "@mui/material";
+import LoginIcon from "@mui/icons-material/Login";
+
+const LoginButtonContainer = styled(Button)(({ theme }) => ({
+  position: "relative",
+  borderRadius: 999,
+  backgroundColor: theme.palette.secondary.main,
+  color: theme.palette.background.default,
+  overflow: "hidden",
+  minWidth: 40,
+  minHeight: 40,
+  maxWidth: 140,
+  fontSize: 18,
+  fontWeight: 600,
+  transition: "max-width 0.25s ease",
+
+  "&:hover": {
+    color: theme.palette.primary.main,
+    scale: 1.025,
+    transition: "scale 0.1s ease",
+  },
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: 40,
+    maxHeight: 40,
+    padding: 8,
+  },
+}));
+
+const Label = styled("div")(({ theme }) => ({
+  opacity: 1,
+  whiteSpace: "nowrap",
+  padding: "0 16px",
+  transform: "translateY(1.4px)",
+  transition: "opacity 0.2s ease",
+  [theme.breakpoints.down("sm")]: {
+    opacity: 0,
+  },
+}));
+
+const IconWrap = styled("div")(({ theme }) => ({
+  position: "absolute",
+  width: 24,
+  height: 24,
+  opacity: 0,
+  right: "50%",
+  top: "50%",
+  transform: "translate(49%, -51%)",
+  transition: "opacity 0.2s ease",
+  [theme.breakpoints.down("sm")]: {
+    opacity: 1,
+  },
+}));
+
+export default function LoginButton() {
+  return (
+    <LoginButtonContainer aria-label="로그인">
+      <Label>로그인</Label>
+      <IconWrap>
+        <LoginIcon />
+      </IconWrap>
+    </LoginButtonContainer>
+  );
+}
