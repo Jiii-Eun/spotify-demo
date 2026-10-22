@@ -1,0 +1,372 @@
+{
+  "albums": {
+    "href": "https://api.spotify.com/v1/browse/new-releases",
+    "limit": 15,
+    "next": null,
+    "offset": 0,
+    "previous": null,
+    "total": 15,
+    "items": [
+      {
+        "album_type": "album",
+        "total_tracks": 12,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-1" },
+        "href": "https://api.spotify.com/v1/albums/mock-1",
+        "id": "mock-1",
+        "images": [{ "url": "https://picsum.photos/seed/mock-1/300/300", "height": 300, "width": 300 }],
+        "name": "Midnight Drive",
+        "release_date": "2024-11-01",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-1",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-1" },
+            "href": "https://api.spotify.com/v1/artists/artist-1",
+            "id": "artist-1",
+            "name": "Nova Lane",
+            "type": "artist",
+            "uri": "spotify:artist:artist-1"
+          }
+        ]
+      },
+      {
+        "album_type": "single",
+        "total_tracks": 1,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-2" },
+        "href": "https://api.spotify.com/v1/albums/mock-2",
+        "id": "mock-2",
+        "images": [{ "url": "https://picsum.photos/seed/mock-2/300/300", "height": 300, "width": 300 }],
+        "name": "Pink Sky",
+        "release_date": "2025-01-14",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-2",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-2" },
+            "href": "https://api.spotify.com/v1/artists/artist-2",
+            "id": "artist-2",
+            "name": "Haneul",
+            "type": "artist",
+            "uri": "spotify:artist:artist-2"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 9,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-3" },
+        "href": "https://api.spotify.com/v1/albums/mock-3",
+        "id": "mock-3",
+        "images": [{ "url": "https://picsum.photos/seed/mock-3/300/300", "height": 300, "width": 300 }],
+        "name": "City Lights",
+        "release_date": "2024-08-20",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-3",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-3" },
+            "href": "https://api.spotify.com/v1/artists/artist-3",
+            "id": "artist-3",
+            "name": "Junho Park",
+            "type": "artist",
+            "uri": "spotify:artist:artist-3"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 14,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-4" },
+        "href": "https://api.spotify.com/v1/albums/mock-4",
+        "id": "mock-4",
+        "images": [{ "url": "https://picsum.photos/seed/mock-4/300/300", "height": 300, "width": 300 }],
+        "name": "After Hours",
+        "release_date": "2023-06-11",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-4",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-4" },
+            "href": "https://api.spotify.com/v1/artists/artist-4",
+            "id": "artist-4",
+            "name": "Luna Kim",
+            "type": "artist",
+            "uri": "spotify:artist:artist-4"
+          }
+        ]
+      },
+      {
+        "album_type": "compilation",
+        "total_tracks": 18,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-5" },
+        "href": "https://api.spotify.com/v1/albums/mock-5",
+        "id": "mock-5",
+        "images": [{ "url": "https://picsum.photos/seed/mock-5/300/300", "height": 300, "width": 300 }],
+        "name": "Summer Tape",
+        "release_date": "2024-07",
+        "release_date_precision": "month",
+        "type": "album",
+        "uri": "spotify:album:mock-5",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-5" },
+            "href": "https://api.spotify.com/v1/artists/artist-5",
+            "id": "artist-5",
+            "name": "Various Artists",
+            "type": "artist",
+            "uri": "spotify:artist:artist-5"
+          }
+        ]
+      },
+      {
+        "album_type": "single",
+        "total_tracks": 2,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-6" },
+        "href": "https://api.spotify.com/v1/albums/mock-6",
+        "id": "mock-6",
+        "images": [{ "url": "https://picsum.photos/seed/mock-6/300/300", "height": 300, "width": 300 }],
+        "name": "Neon Heart",
+        "release_date": "2025-03-02",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-6",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-6" },
+            "href": "https://api.spotify.com/v1/artists/artist-6",
+            "id": "artist-6",
+            "name": "Sora",
+            "type": "artist",
+            "uri": "spotify:artist:artist-6"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 11,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-7" },
+        "href": "https://api.spotify.com/v1/albums/mock-7",
+        "id": "mock-7",
+        "images": [{ "url": "https://picsum.photos/seed/mock-7/300/300", "height": 300, "width": 300 }],
+        "name": "Quiet Room",
+        "release_date": "2022-12-09",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-7",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-7" },
+            "href": "https://api.spotify.com/v1/artists/artist-7",
+            "id": "artist-7",
+            "name": "Minjae",
+            "type": "artist",
+            "uri": "spotify:artist:artist-7"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 8,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-8" },
+        "href": "https://api.spotify.com/v1/albums/mock-8",
+        "id": "mock-8",
+        "images": [{ "url": "https://picsum.photos/seed/mock-8/300/300", "height": 300, "width": 300 }],
+        "name": "Golden Hour",
+        "release_date": "2024-04-18",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-8",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-8" },
+            "href": "https://api.spotify.com/v1/artists/artist-8",
+            "id": "artist-8",
+            "name": "YESEO",
+            "type": "artist",
+            "uri": "spotify:artist:artist-8"
+          }
+        ]
+      },
+      {
+        "album_type": "single",
+        "total_tracks": 1,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-9" },
+        "href": "https://api.spotify.com/v1/albums/mock-9",
+        "id": "mock-9",
+        "images": [{ "url": "https://picsum.photos/seed/mock-9/300/300", "height": 300, "width": 300 }],
+        "name": "Rain On Glass",
+        "release_date": "2025-05-21",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-9",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-9" },
+            "href": "https://api.spotify.com/v1/artists/artist-9",
+            "id": "artist-9",
+            "name": "Blue Motel",
+            "type": "artist",
+            "uri": "spotify:artist:artist-9"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 13,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-10" },
+        "href": "https://api.spotify.com/v1/albums/mock-10",
+        "id": "mock-10",
+        "images": [{ "url": "https://picsum.photos/seed/mock-10/300/300", "height": 300, "width": 300 }],
+        "name": "Northbound",
+        "release_date": "2023-02-03",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-10",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-10" },
+            "href": "https://api.spotify.com/v1/artists/artist-10",
+            "id": "artist-10",
+            "name": "Karina Oh",
+            "type": "artist",
+            "uri": "spotify:artist:artist-10"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 10,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-11" },
+        "href": "https://api.spotify.com/v1/albums/mock-11",
+        "id": "mock-11",
+        "images": [{ "url": "https://picsum.photos/seed/mock-11/300/300", "height": 300, "width": 300 }],
+        "name": "Velvet Noise",
+        "release_date": "2024-09-30",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-11",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-11" },
+            "href": "https://api.spotify.com/v1/artists/artist-11",
+            "id": "artist-11",
+            "name": "Doyoon",
+            "type": "artist",
+            "uri": "spotify:artist:artist-11"
+          }
+        ]
+      },
+      {
+        "album_type": "single",
+        "total_tracks": 3,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-12" },
+        "href": "https://api.spotify.com/v1/albums/mock-12",
+        "id": "mock-12",
+        "images": [{ "url": "https://picsum.photos/seed/mock-12/300/300", "height": 300, "width": 300 }],
+        "name": "Late Call",
+        "release_date": "2025-02-11",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-12",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-12" },
+            "href": "https://api.spotify.com/v1/artists/artist-12",
+            "id": "artist-12",
+            "name": "April Seo",
+            "type": "artist",
+            "uri": "spotify:artist:artist-12"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 16,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-13" },
+        "href": "https://api.spotify.com/v1/albums/mock-13",
+        "id": "mock-13",
+        "images": [{ "url": "https://picsum.photos/seed/mock-13/300/300", "height": 300, "width": 300 }],
+        "name": "Paper Moon",
+        "release_date": "2021-10-05",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-13",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-13" },
+            "href": "https://api.spotify.com/v1/artists/artist-13",
+            "id": "artist-13",
+            "name": "The Halves",
+            "type": "artist",
+            "uri": "spotify:artist:artist-13"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 7,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-14" },
+        "href": "https://api.spotify.com/v1/albums/mock-14",
+        "id": "mock-14",
+        "images": [{ "url": "https://picsum.photos/seed/mock-14/300/300", "height": 300, "width": 300 }],
+        "name": "Small Victory",
+        "release_date": "2024-12-19",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-14",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-14" },
+            "href": "https://api.spotify.com/v1/artists/artist-14",
+            "id": "artist-14",
+            "name": "Jiwon Lee",
+            "type": "artist",
+            "uri": "spotify:artist:artist-14"
+          }
+        ]
+      },
+      {
+        "album_type": "single",
+        "total_tracks": 1,
+        "available_markets": ["KR"],
+        "external_urls": { "spotify": "https://open.spotify.com/album/mock-15" },
+        "href": "https://api.spotify.com/v1/albums/mock-15",
+        "id": "mock-15",
+        "images": [{ "url": "https://picsum.photos/seed/mock-15/300/300", "height": 300, "width": 300 }],
+        "name": "First Light",
+        "release_date": "2025-06-01",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:mock-15",
+        "artists": [
+          {
+            "external_urls": { "spotify": "https://open.spotify.com/artist/artist-15" },
+            "href": "https://api.spotify.com/v1/artists/artist-15",
+            "id": "artist-15",
+            "name": "Echo Park",
+            "type": "artist",
+            "uri": "spotify:artist:artist-15"
+          }
+        ]
+      }
+    ]
+  }
+}

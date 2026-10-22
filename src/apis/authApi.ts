@@ -2,7 +2,13 @@ import { CLIENT_SECRET, CLIENT_ID } from "../configs/authConfig";
 import type { ClientCredentialTokenResponse } from "../types/authType";
 
 const encodedCredentials = (data: string): string => {
-  return Buffer.from(data).toString("base64");
+  if (typeof window !== "undefined") {
+    // 브라우저 환경
+    return btoa(data);
+  } else {
+    // Node.js 환경
+    return Buffer.from(data).toString("base64");
+  }
 };
 
 export const getClientCredentialToken =
@@ -20,9 +26,10 @@ export const getClientCredentialToken =
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
+
       return response.json();
     } catch (error) {
       console.error(error);
-      throw new Error("Failed to fetch client credential token");
+      throw error;
     }
   };

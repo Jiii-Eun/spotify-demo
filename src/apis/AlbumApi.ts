@@ -1,6 +1,9 @@
-import { useFetch } from "../hooks/useFetch";
 import type { AlbumResponse } from "../types/apiType";
+import { fetchData } from "./fatchData";
 
-export const getRizeMusic = () => {
-  return useFetch<AlbumResponse>("/browse/new-releases");
+export const getRizeMusic = async (clientCredentialToken: string) => {
+  return await fetchData<AlbumResponse>(
+    "/browse/new-releases?limit=6",
+    clientCredentialToken,
+  );
 };
