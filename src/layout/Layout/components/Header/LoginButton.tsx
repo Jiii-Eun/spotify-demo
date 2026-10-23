@@ -1,6 +1,8 @@
 import { Button, styled } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 
+import { getSpotifyAuthUrl } from "../../../../apis/utils/auth";
+
 const LoginButtonContainer = styled(Button)(({ theme }) => ({
   position: "relative",
   borderRadius: 999,
@@ -52,8 +54,12 @@ const IconWrap = styled("div")(({ theme }) => ({
 }));
 
 export default function LoginButton() {
+  const login = () => {
+    getSpotifyAuthUrl();
+  };
+
   return (
-    <LoginButtonContainer aria-label="로그인">
+    <LoginButtonContainer aria-label="로그인" onClick={login}>
       <Label>로그인</Label>
       <IconWrap>
         <LoginIcon />

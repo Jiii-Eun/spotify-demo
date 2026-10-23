@@ -61,7 +61,7 @@ export default function MusicCardList({ albums }: MusicCardListProps) {
         text: { primary: string };
       };
     }) => ({
-      position: "absolute" as const,
+      position: "absolute",
       top: "32%",
       zIndex: 2,
       width: 40,

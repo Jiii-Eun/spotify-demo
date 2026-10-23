@@ -6,7 +6,6 @@ import Sidebar from "./components/Sidebar/Sidebar";
 const ContentContainer = styled("div")({
   display: "flex",
   height: "100vh",
-  width: "100%",
   gap: "8px",
   margin: "8px",
 });

@@ -12,13 +12,12 @@ export const fetchData = async <T>(
         Accept: "application/json",
       },
     });
+
     const text = await response.text();
     if (!response.ok) {
       throw new Error(`Request failed: ${response.status} ${text}`);
     }
-
-    const data = (await response.json()) as T;
-    return data;
+    return JSON.parse(text) as T;
   } catch (error) {
     console.error(error);
     throw error;
