@@ -3,6 +3,8 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingSpinner from "./common/components/LoadingSpinner/LoadingSpinner";
 import Layout from "./layout/Layout/Layout";
+import { useExchangeToken } from "./hooks/useExchangeToken";
+import { useEffect } from "react";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SearchPage = lazy(() => import("./pages/SearchPage/SearchPage"));
@@ -38,6 +40,18 @@ const PlaylistDetailPage = lazy(
 // 후에 Suspense를 페이지 별 Suspense로 감싸주어 페이지 별 스켈레톤으로 설정해줘야한다.
 
 function App() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get("code");
+  const codeVerifier = localStorage.getItem("code_verifier");
+
+  const { mutate: exchangeToken } = useExchangeToken();
+
+  useEffect(() => {
+    if (code && codeVerifier) {
+      exchangeToken({ code, codeVerifier });
+    }
+  }, [code, codeVerifier, exchangeToken]);
+
   return (
     <>
       <Suspense fallback={<LoadingSpinner />}>

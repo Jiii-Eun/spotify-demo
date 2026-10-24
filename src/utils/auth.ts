@@ -1,8 +1,8 @@
 import { generateRandomString, sha256, base64encode } from "./crypto";
-import type { SpotifyAuthUrlParams } from "../../types/authType";
+import type { SpotifyAuthUrlParams } from "../types/authType";
 
-import { CLIENT_ID } from "../../configs/authConfig";
-import { REDIRECT_URI } from "../../configs/commonConfig";
+import { CLIENT_ID } from "../configs/authConfig";
+import { REDIRECT_URI } from "../configs/commonConfig";
 
 export const getSpotifyAuthUrl = async () => {
   const codeVerifier = generateRandomString(64);

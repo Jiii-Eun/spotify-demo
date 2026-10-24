@@ -1,7 +1,7 @@
 import { Button, styled } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 
-import { getSpotifyAuthUrl } from "../../../../apis/utils/auth";
+import { getSpotifyAuthUrl } from "../../../../utils/auth";
 
 const LoginButtonContainer = styled(Button)(({ theme }) => ({
   position: "relative",

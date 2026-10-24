@@ -1,5 +1,9 @@
 import { CLIENT_SECRET, CLIENT_ID } from "../configs/authConfig";
-import type { ClientCredentialTokenResponse } from "../types/authType";
+import { REDIRECT_URI } from "../configs/commonConfig";
+import type {
+  ClientCredentialTokenResponse,
+  ExchangeTokenResponse,
+} from "../types/authType";
 
 const encodedCredentials = (data: string): string => {
   if (typeof window !== "undefined") {
@@ -33,3 +37,35 @@ export const getClientCredentialToken =
       throw error;
     }
   };
+
+export const exchangeToken = async (
+  code: string,
+  codeVerifier: string,
+): Promise<ExchangeTokenResponse> => {
+  try {
+    const url = "https://accounts.spotify.com/api/token";
+    if (!CLIENT_ID || !REDIRECT_URI) {
+      throw new Error("CLIENT_ID or REDIRECT_URI is not set");
+    }
+    const body = new URLSearchParams({
+      client_id: CLIENT_ID,
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: REDIRECT_URI,
+      code_verifier: codeVerifier,
+    });
+
+    const response = await fetch(url, {
+      method: "POST",
+      body,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
