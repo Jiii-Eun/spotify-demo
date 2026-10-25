@@ -8,11 +8,7 @@ export const useGetRizeMusic = () => {
   return useQuery({
     queryKey: ["getRizeMusic"],
     queryFn: async () => {
-      if (!clientCredentialToken) {
-        throw new Error("Client credential token is not found");
-      }
-
-      return await getRizeMusic(clientCredentialToken);
+      return await getRizeMusic(clientCredentialToken as string);
     },
   });
 };

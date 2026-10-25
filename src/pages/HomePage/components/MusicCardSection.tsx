@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import MusicCardList from "./MusicCardList";
 import { Typography } from "@mui/material";
-import { useGetRizeMusic } from "../../../hooks/useApi";
+import { useGetRizeMusic } from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../common/components/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "../../../common/components/ErrorMessage";
 

@@ -2,6 +2,7 @@ import { Button, styled } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 
 import { getSpotifyAuthUrl } from "../../../../utils/auth";
+import { useGetCurrentUserProfile } from "../../../../hooks/useUser";
 
 const LoginButtonContainer = styled(Button)(({ theme }) => ({
   position: "relative",
@@ -54,13 +55,24 @@ const IconWrap = styled("div")(({ theme }) => ({
 }));
 
 export default function LoginButton() {
+  const { data: userProfile } = useGetCurrentUserProfile();
+
   const login = () => {
     getSpotifyAuthUrl();
   };
 
   return (
     <LoginButtonContainer aria-label="로그인" onClick={login}>
-      <Label>로그인</Label>
+      <Label>
+        {userProfile ? (
+          <>
+            <img src={userProfile.images?.[0].url} alt="user profile" />{" "}
+            {userProfile.display_name}
+          </>
+        ) : (
+          "로그인"
+        )}
+      </Label>
       <IconWrap>
         <LoginIcon />
       </IconWrap>

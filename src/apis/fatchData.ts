@@ -4,6 +4,10 @@ export const fetchData = async <T>(
   endpoint: string,
   clientCredentialToken: string,
 ): Promise<T> => {
+  if (!clientCredentialToken) {
+    throw new Error("Client credential token is not found");
+  }
+
   try {
     const response = await fetch(`${BASE_API_URL}${endpoint}`, {
       headers: {
