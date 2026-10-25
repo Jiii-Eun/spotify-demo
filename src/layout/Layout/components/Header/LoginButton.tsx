@@ -31,6 +31,9 @@ const LoginButtonContainer = styled(Button)(({ theme }) => ({
 }));
 
 const Label = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
   opacity: 1,
   whiteSpace: "nowrap",
   padding: "0 16px",
