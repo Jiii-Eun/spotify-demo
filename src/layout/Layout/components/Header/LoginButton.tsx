@@ -66,8 +66,8 @@ export default function LoginButton() {
       <Label>
         {userProfile ? (
           <>
-            <img src={userProfile.images?.[0].url} alt="user profile" />{" "}
-            {userProfile.display_name}
+            <img src={userProfile?.images?.[0].url} alt="user profile" />{" "}
+            {userProfile?.display_name}
           </>
         ) : (
           "로그인"
