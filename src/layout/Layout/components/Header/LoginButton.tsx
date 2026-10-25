@@ -67,11 +67,14 @@ export default function LoginButton() {
   return (
     <LoginButtonContainer aria-label="로그인" onClick={login}>
       <Label>
-        {userProfile ? <>
+        {userProfile ? (
+          <>
             <Avatar src={imageUrl} alt="user profile" />{" "}
             {userProfile?.display_name}
           </>
-        ) : "로그인"}
+        ) : (
+          "로그인"
+        )}
       </Label>
       <IconWrap>
         <LoginIcon />
