@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import useClientCredentialToken from "./useClientCredentialToken";
 import { getCurrentUserProfile } from "../apis/userApi";
 
 export const useGetCurrentUserProfile = () => {
-  const clientCredentialToken = useClientCredentialToken();
+  const clientCredentialToken = localStorage.getItem("access_token");
 
   return useQuery({
     queryKey: ["currentUserProfile"],
