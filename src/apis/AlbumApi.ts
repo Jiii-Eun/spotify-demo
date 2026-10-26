@@ -1,4 +1,4 @@
-import type { AlbumResponse } from "../types/apiType";
+import type { AlbumResponse } from "../types/albumType";
 import { fetchData } from "./fatchData";
 
 // export const getRizeMusic = async (clientCredentialToken: string) => {

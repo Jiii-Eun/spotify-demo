@@ -1,18 +1,12 @@
+import type { ExternalUrls, Image } from "./commonType";
+
 export interface UserProfileResponse {
   account_id?: string;
   display_name?: string;
-  external_urls?: {
-    spotify: string;
-  };
+  external_urls?: ExternalUrls;
   href?: string;
   id?: string;
-  images?: UserImage[];
+  images?: Image[];
   type?: string;
   uri?: string;
-}
-
-export interface UserImage {
-  url: string;
-  height: number | null;
-  width: number | null;
 }

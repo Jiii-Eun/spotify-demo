@@ -1,4 +1,4 @@
-import type { Album } from "./apiType";
+import type { Album } from "./albumType";
 
 export interface MusicCardProps {
   album: Album;

@@ -15,6 +15,7 @@ export const useExchangeToken = () => {
       localStorage.setItem("access_token", data.access_token);
       queryClient.invalidateQueries({ queryKey: ["currentUserProfile"] });
       queryClient.invalidateQueries({ queryKey: ["getRizeMusic"] });
+      queryClient.invalidateQueries({ queryKey: ["playList"] });
     },
   });
 };

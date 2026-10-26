@@ -1,5 +1,6 @@
 import { styled } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { usePlaylist } from "../../../../hooks/usePlaylist";
 
 const EmptyPlayListContainer = styled("div")(({ theme }) => ({
   display: "flex",
@@ -41,6 +42,8 @@ const EmptyPlayListLink = styled(NavLink)(({ theme }) => ({
 }));
 
 export default function EmptyPlayList() {
+  const { data } = usePlaylist();
+  console.log(data);
   return (
     <EmptyPlayListContainer>
       <EmptyPlayListTitle>첫 번째 플레이리스트를 만드세요.</EmptyPlayListTitle>
