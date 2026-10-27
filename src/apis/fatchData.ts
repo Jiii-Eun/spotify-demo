@@ -19,6 +19,7 @@ export const fetchData = async <T>(
 
     const text = await response.text();
     if (!response.ok) {
+      throw new Error(`Request failed: ${response.status} ${text}`);
     }
     if (response.status === 401) {
       const storedAccessToken = localStorage.getItem("access_token");

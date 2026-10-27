@@ -94,12 +94,20 @@ const Subtitle = styled("div")(({ theme }) => ({
   whiteSpace: "nowrap",
 }));
 
-export default function PlayListCard({ playlist }: { playlist: Playlist }) {
+export default function PlayListCard({
+  playlist,
+  handleClick,
+  id,
+}: {
+  playlist: Playlist;
+  handleClick: (id: string) => void;
+  id: string;
+}) {
   const coverUrl = playlist.images?.[0]?.url;
   const ownerName = playlist.owner.display_name ?? playlist.owner.id;
 
   return (
-    <CardRoot>
+    <CardRoot onClick={() => handleClick(id)}>
       <Cover>
         {coverUrl ? (
           <CoverImage

@@ -6,13 +6,19 @@ export interface Restrictions {
   reason: string;
 }
 
-export interface Artist {
-  external_urls: ExternalUrls;
+export interface BaseItem {
   href: string;
   id: string;
-  name: string;
   type: string;
   uri: string;
+}
+
+export interface BaseItemName extends BaseItem {
+  name: string;
+}
+
+export interface Artist extends BaseItemName {
+  external_urls: ExternalUrls;
 }
 
 export interface Image {
@@ -27,12 +33,8 @@ export interface ExternalIds {
   upc: string;
 }
 
-export interface Owner {
+export interface Owner extends BaseItem {
   external_urls: ExternalUrls;
-  href: string;
-  id: string;
-  type: string;
-  uri: string;
   display_name: string;
 }
 
@@ -44,10 +46,6 @@ export interface Copyright {
 export interface ResumePoint {
   fully_played: boolean;
   resume_position_ms: number;
-}
-
-export interface Author {
-  name: string;
 }
 
 export interface Options {

@@ -3,32 +3,24 @@ import type { Album } from "./albumType";
 import type {
   Artist,
   ExternalIds,
-  ExternalUrls,
   Image,
   Restrictions,
   Owner,
   Copyright,
   ResumePoint,
-  Author,
 } from "./commonType";
 
 export interface SearchResponse {
   tracks: ApiResponse<SearchTrack>;
-  artists: ApiResponse<SearchArtist>;
+  artists: ApiResponse<SearchExternal>;
   albums: ApiResponse<SearchAlbum>;
   playlists: ApiResponse<SearchPlaylist>;
   shows: ApiResponse<SearchShow>;
   episodes: ApiResponse<SearchEpisode>;
 }
 
-export interface SearchExternal {
-  external_urls: ExternalUrls;
+export interface SearchExternal extends Artist {
   images: Image[];
-  name: string;
-  href: string;
-  id: string;
-  type: string;
-  uri: string;
 }
 
 export interface SearchTrack {
@@ -44,8 +36,6 @@ export interface SearchTrack {
   track_number: number;
   is_local: boolean;
 }
-
-export interface SearchArtist extends SearchExternal {}
 
 export interface SearchAlbum extends SearchExternal {
   album_type: string;
@@ -90,13 +80,13 @@ export interface SearchEpisode extends SearchExternal {
 }
 
 export interface SearchAudiobooks extends SearchExternal {
-  authors: Author[];
+  authors: Artist[];
   copyrights: Copyright[];
   description: string;
   html_description: string;
   edition: string;
   explicit: boolean;
   languages: string[];
-  narrators: Author[];
+  narrators: Artist[];
   total_chapters: number;
 }

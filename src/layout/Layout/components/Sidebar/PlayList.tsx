@@ -4,6 +4,7 @@ import type { PlaylistResponse } from "../../../../types/playlistType";
 import PlayListCard from "./PlayListCard";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PlayListContainer = styled("div")({
   display: "flex",
@@ -25,6 +26,7 @@ export default function PlayList({
   fetchNextPage: () => void;
 }) {
   const { ref, inView } = useInView();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -32,11 +34,20 @@ export default function PlayList({
     }
   }, [inView]);
 
+  const handleClick = (id: string) => {
+    navigate(`/playlist/${id}`);
+  };
+
   return (
     <PlayListContainer>
       {data.pages.flatMap((page) =>
         page.items.map((playlist) => (
-          <PlayListCard key={playlist.id} playlist={playlist} />
+          <PlayListCard
+            key={playlist.id}
+            playlist={playlist}
+            handleClick={handleClick}
+            id={playlist.id}
+          />
         )),
       )}
       <div ref={ref} />
