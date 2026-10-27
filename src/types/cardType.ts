@@ -1,10 +1,10 @@
-import type { Album } from "./albumType";
+import type { SearchAlbum } from "./searchType";
 
 export interface MusicCardProps {
-  album: Album;
+  album: SearchAlbum;
   index: number;
 }
 
 export interface MusicCardListProps {
-  albums: Album[];
+  albums: SearchAlbum[];
 }

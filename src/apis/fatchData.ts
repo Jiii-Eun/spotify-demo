@@ -13,7 +13,6 @@ export const fetchData = async <T>(
       headers: {
         Authorization: `Bearer ${clientCredentialToken}`,
         "Content-Type": "application/json",
-        Accept: "application/json",
       },
     });
 

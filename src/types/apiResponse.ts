@@ -1,5 +1,5 @@
 export interface ApiResponse<T> {
-  herf: string;
+  href: string;
   limit: number;
   next: string | null;
   offset: number;

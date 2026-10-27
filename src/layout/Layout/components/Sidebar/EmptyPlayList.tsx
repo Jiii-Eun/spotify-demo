@@ -43,7 +43,8 @@ const EmptyPlayListLink = styled(NavLink)(({ theme }) => ({
 
 export default function EmptyPlayList() {
   const { data } = usePlaylist();
-  console.log(data);
+  console.log(`플레이리스트: ${data}`);
+
   return (
     <EmptyPlayListContainer>
       <EmptyPlayListTitle>첫 번째 플레이리스트를 만드세요.</EmptyPlayListTitle>

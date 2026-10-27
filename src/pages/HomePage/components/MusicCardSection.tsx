@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import MusicCardList from "./MusicCardList";
 import { Typography } from "@mui/material";
-import { useGetRizeMusic } from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../common/components/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "../../../common/components/ErrorMessage";
+import { useGetSearchAlbums } from "../../../hooks/useAlbums";
+import type { SearchAlbum } from "../../../types/searchType";
 
 // import HomeMock from "../HomeMock.json";
 // import type { AlbumResponse } from "../../../types/apiType";
@@ -19,12 +20,10 @@ const RizeMusic = styled("div")({
 // const data = HomeMock as AlbumResponse;
 
 const RizeMusics = () => {
-  const { data, isLoading, error } = useGetRizeMusic();
+  const { data, isLoading, error } = useGetSearchAlbums();
 
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error.message} />;
-
-  console.log(data);
 
   return <MusicCardList albums={data?.albums.items || []} />;
 };
