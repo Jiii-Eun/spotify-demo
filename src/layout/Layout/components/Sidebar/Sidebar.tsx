@@ -66,10 +66,7 @@ export default function Sidebar() {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
-  } = usePlaylist({
-    offset: 0,
-    limit: 10,
-  });
+  } = usePlaylist(10);
 
   console.log("플레이리스트:", data);
 

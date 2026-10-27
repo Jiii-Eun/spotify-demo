@@ -1,8 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getUserPlaylists } from "../apis/playlistApi";
-import type { Options } from "../types/commonType";
 
-export const usePlaylist = ({ offset, limit }: Options) => {
+export const usePlaylist = (limit: number) => {
   const accessToken = localStorage.getItem("access_token");
 
   return useInfiniteQuery({
