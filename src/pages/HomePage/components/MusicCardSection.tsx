@@ -4,7 +4,6 @@ import { Typography } from "@mui/material";
 import LoadingSpinner from "../../../common/components/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "../../../common/components/ErrorMessage";
 import { useGetSearchAlbums } from "../../../hooks/useAlbums";
-import type { SearchAlbum } from "../../../types/searchType";
 
 // import HomeMock from "../HomeMock.json";
 // import type { AlbumResponse } from "../../../types/apiType";
