@@ -1,9 +1,7 @@
 import type { ExternalUrls, Image } from "./commonType";
 import type { ApiResponse } from "./apiResponse";
 
-export interface PlaylistResponse {
-  playlists: ApiResponse<Playlist>;
-}
+export type PlaylistResponse = ApiResponse<Playlist>;
 
 export interface Playlist {
   collaborative: boolean;

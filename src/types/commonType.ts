@@ -49,3 +49,8 @@ export interface ResumePoint {
 export interface Author {
   name: string;
 }
+
+export interface Options {
+  offset: number;
+  limit: number;
+}

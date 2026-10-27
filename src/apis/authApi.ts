@@ -63,6 +63,12 @@ export const exchangeToken = async (
       },
     });
     const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error_description ?? data.error ?? "Token exchange failed",
+      );
+    }
     return data;
   } catch (error) {
     console.error(error);

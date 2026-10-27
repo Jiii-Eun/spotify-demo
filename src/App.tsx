@@ -47,9 +47,17 @@ function App() {
   const { mutate: exchangeToken } = useExchangeToken();
 
   useEffect(() => {
-    if (code && codeVerifier) {
-      exchangeToken({ code, codeVerifier });
-    }
+    if (!code || !codeVerifier) return;
+
+    exchangeToken(
+      { code, codeVerifier },
+      {
+        onSettled: () => {
+          localStorage.removeItem("code_verifier");
+          window.history.replaceState({}, "", "/");
+        },
+      },
+    );
   }, [code, codeVerifier, exchangeToken]);
 
   return (
@@ -57,6 +65,7 @@ function App() {
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route element={<Layout />}>
+            <Route path="callback" element={<HomePage />} />
             <Route index element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="search/:query" element={<SearchResultPage />} />

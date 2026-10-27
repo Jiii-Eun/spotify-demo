@@ -12,6 +12,7 @@ export const useExchangeToken = () => {
   >({
     mutationFn: ({ code, codeVerifier }) => exchangeToken(code, codeVerifier),
     onSuccess: (data) => {
+      if (!data.access_token) return;
       localStorage.setItem("access_token", data.access_token);
       queryClient.invalidateQueries({ queryKey: ["currentUserProfile"] });
       queryClient.invalidateQueries({ queryKey: ["getRizeMusic"] });
