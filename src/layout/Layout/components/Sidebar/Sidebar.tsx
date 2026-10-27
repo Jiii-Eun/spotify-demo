@@ -59,7 +59,17 @@ const PlayListArea = styled("div")(({ theme }) => ({
 }));
 
 export default function Sidebar() {
-  const { data, isLoading, error } = usePlaylist({ offset: 0, limit: 10 });
+  const {
+    data,
+    isLoading,
+    error,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = usePlaylist({
+    offset: 0,
+    limit: 10,
+  });
 
   console.log("플레이리스트:", data);
 
@@ -76,7 +86,12 @@ export default function Sidebar() {
         {data?.pages[0]?.items.length === 0 || !data ? (
           <EmptyPlayList />
         ) : (
-          <PlayList data={data as InfiniteData<PlaylistResponse>} />
+          <PlayList
+            data={data as InfiniteData<PlaylistResponse>}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            fetchNextPage={fetchNextPage}
+          />
         )}
       </PlayListArea>
     </SidebarRoot>
