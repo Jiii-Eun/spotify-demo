@@ -1,9 +1,12 @@
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { styled } from "@mui/material";
+import { useParams } from "react-router-dom";
 import type { Playlist } from "../../../../types/playlistType";
 
-const CardRoot = styled("div")(({ theme }) => ({
+const CardRoot = styled("div", {
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>(({ theme, isActive }) => ({
   display: "flex",
   alignItems: "center",
   gap: 12,
@@ -13,8 +16,11 @@ const CardRoot = styled("div")(({ theme }) => ({
   padding: 8,
   borderRadius: 8,
   cursor: "pointer",
+  backgroundColor: isActive ? theme.palette.primary.main : "transparent",
   "&:hover": {
-    backgroundColor: theme.palette.background.black300,
+    backgroundColor: isActive
+      ? theme.palette.primary.main
+      : theme.palette.background.black300,
     "& .playlist-cover-overlay": {
       opacity: 1,
     },
@@ -97,17 +103,19 @@ const Subtitle = styled("div")(({ theme }) => ({
 export default function PlayListCard({
   playlist,
   handleClick,
-  id,
+  playlistId,
 }: {
   playlist: Playlist;
   handleClick: (id: string) => void;
-  id: string;
+  playlistId: string;
 }) {
+  const { id: activePlaylistId } = useParams<{ id: string }>();
+  const isActive = activePlaylistId === playlistId;
   const coverUrl = playlist.images?.[0]?.url;
   const ownerName = playlist.owner.display_name ?? playlist.owner.id;
 
   return (
-    <CardRoot onClick={() => handleClick(id)}>
+    <CardRoot isActive={isActive} onClick={() => handleClick(playlistId)}>
       <Cover>
         {coverUrl ? (
           <CoverImage

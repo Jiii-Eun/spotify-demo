@@ -162,7 +162,6 @@ export default function PlaylistDetailHeader({
   const { data: userProfile } = useGetCurrentUserProfile();
   const { data: userPlaylists } = useGetUserPlaylists(10);
 
-  // Items API에는 name/images/owner가 없어 사이드바와 같은 유저 플레이리스트에서 메타 조회
   const playlist = userPlaylists?.pages
     .flatMap((page) => page.items)
     .find((item) => item.id === id);

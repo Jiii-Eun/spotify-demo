@@ -46,7 +46,7 @@ export default function PlayList({
             key={playlist.id}
             playlist={playlist}
             handleClick={handleClick}
-            id={playlist.id}
+            playlistId={playlist.id}
           />
         )),
       )}
