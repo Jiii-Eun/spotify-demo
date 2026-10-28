@@ -1,16 +1,17 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getUserPlaylists } from "../apis/playlistApi";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getPlaylistItems, getUserPlaylists } from "../apis/playlistApi";
+import type { GetPlaylistItemsRequest } from "../types/playlistType";
 
-export const usePlaylist = (limit: number) => {
+export const useGetUserPlaylists = (limit: number) => {
   const accessToken = localStorage.getItem("access_token");
 
   return useInfiniteQuery({
-    queryKey: ["playList"],
+    queryKey: ["userPlaylists"],
     queryFn: ({ pageParam }) => {
-      return getUserPlaylists(
-        { limit, offset: pageParam },
-        accessToken as string,
-      );
+      if (!accessToken) {
+        throw new Error("Access token is not found");
+      }
+      return getUserPlaylists({ limit, offset: pageParam }, accessToken);
     },
     enabled: !!accessToken,
     initialPageParam: 0,
@@ -22,5 +23,19 @@ export const usePlaylist = (limit: number) => {
       }
       return undefined;
     },
+  });
+};
+
+export const useGetPlaylistItems = (params: GetPlaylistItemsRequest) => {
+  const accessToken = localStorage.getItem("access_token");
+  return useQuery({
+    queryKey: ["playlistItems", params.playlist_id],
+    queryFn: () => {
+      if (!accessToken) {
+        throw new Error("Access token is not found");
+      }
+      return getPlaylistItems(params, accessToken);
+    },
+    enabled: !!params.playlist_id,
   });
 };

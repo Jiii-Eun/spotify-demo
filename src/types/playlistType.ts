@@ -26,7 +26,7 @@ export interface PlaylistTracksRef {
 }
 
 export interface GetPlaylistItemsRequest {
-  playlistId: string;
+  playlist_id: string;
   market?: string;
   fields?: string;
   limit?: number;

@@ -3,10 +3,13 @@ import { queryClient } from "../queryClient";
 
 export const fetchData = async <T>(
   endpoint: string,
-  clientCredentialToken: string,
+  clientCredentialToken?: string,
+  hasToken: boolean = true,
 ): Promise<T> => {
-  if (!clientCredentialToken) {
-    throw new Error("Client credential token is not found");
+  if (hasToken) {
+    if (!clientCredentialToken) {
+      throw new Error("Client credential token is not found");
+    }
   }
 
   try {

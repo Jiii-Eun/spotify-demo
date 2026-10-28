@@ -17,18 +17,24 @@ export const getUserPlaylists = async (
 };
 
 export const getPlaylistItems = async (
-  {
-    playlistId,
-    market,
-    fields,
-    limit,
-    offset,
-    additional_types,
-  }: GetPlaylistItemsRequest,
+  params: GetPlaylistItemsRequest,
   clientCredentialToken: string,
 ) => {
+  const { playlist_id, ...query } = params;
+
+  const queryParams = Object.fromEntries(
+    Object.entries(query)
+      .filter(([, v]) => v != null && v !== "")
+      .map(([k, v]) => [k, String(v)]),
+  );
+
+  const queryString =
+    Object.keys(queryParams).length > 0
+      ? `?${new URLSearchParams(queryParams).toString()}`
+      : "";
+
   return await fetchData<GetPlaylistItemsResponse>(
-    `/playlists/${playlistId}/tracks?market=${market}&fields=${fields}&limit=${limit}&offset=${offset}&additional_types=${additional_types}`,
+    `/playlists/${params.playlist_id}/items${queryString}`,
     clientCredentialToken,
   );
 };

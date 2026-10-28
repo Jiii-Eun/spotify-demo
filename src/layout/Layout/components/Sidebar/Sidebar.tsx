@@ -1,12 +1,12 @@
 import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/material";
 import EmptyPlayList from "./EmptyPlayList";
-import { usePlaylist } from "../../../../hooks/usePlaylist";
 import ErrorMessage from "../../../../common/components/ErrorMessage";
 import LoadingSpinner from "../../../../common/components/LoadingSpinner/LoadingSpinner";
 import PlayList from "./PlayList";
 import type { InfiniteData } from "@tanstack/react-query";
 import type { PlaylistResponse } from "../../../../types/playlistType";
+import { useGetUserPlaylists } from "../../../../hooks/usePlaylist";
 
 const SidebarRoot = styled("div")({
   display: "flex",
@@ -66,7 +66,7 @@ export default function Sidebar() {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
-  } = usePlaylist(10);
+  } = useGetUserPlaylists(10);
 
   console.log("플레이리스트:", data);
 
