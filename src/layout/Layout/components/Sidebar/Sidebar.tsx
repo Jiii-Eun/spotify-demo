@@ -68,8 +68,6 @@ export default function Sidebar() {
     fetchNextPage,
   } = useGetUserPlaylists(10);
 
-  console.log("플레이리스트:", data);
-
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error.message} />;
 

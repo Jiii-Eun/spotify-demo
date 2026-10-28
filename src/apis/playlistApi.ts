@@ -34,7 +34,7 @@ export const getPlaylistItems = async (
       : "";
 
   return await fetchData<GetPlaylistItemsResponse>(
-    `/playlists/${params.playlist_id}/items${queryString}`,
+    `/playlists/${playlist_id}/items${queryString}`,
     clientCredentialToken,
   );
 };

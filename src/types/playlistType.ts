@@ -40,12 +40,7 @@ export interface PlaylistItem {
   added_at: Date;
   added_by: Artist;
   is_local: boolean;
-  item: PlaylistTrack;
-}
-
-export interface PlaylistTrack {
-  TrackObject: PlaylistTrackItem;
-  EpisodeObject: PlaylistEpisode;
+  item: PlaylistTrackItem | PlaylistEpisode;
 }
 
 export interface PlaylistTrackItem extends Artist {

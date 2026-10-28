@@ -7,7 +7,10 @@ export const useGetCurrentUserProfile = () => {
   return useQuery({
     queryKey: ["currentUserProfile"],
     queryFn: async () => {
-      return await getCurrentUserProfile(accessToken as string);
+      if (!accessToken) {
+        throw new Error("Access token is not found");
+      }
+      return await getCurrentUserProfile(accessToken);
     },
     enabled: !!accessToken,
     staleTime: 0,
