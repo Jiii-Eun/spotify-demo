@@ -13,6 +13,7 @@ import type {
   GetPlaylistItemsRequest,
 } from "../types/playlistType";
 import getSpotifyAuthUrl from "../utils/auth";
+import { logout } from "../utils/userAuth";
 
 export const useGetUserPlaylists = (limit: number) => {
   const accessToken = localStorage.getItem("access_token");
@@ -21,6 +22,7 @@ export const useGetUserPlaylists = (limit: number) => {
     queryKey: ["userPlaylists"],
     queryFn: ({ pageParam }) => {
       if (!accessToken) {
+        logout();
         throw new Error("Access token is not found");
       }
       return getUserPlaylists({ limit, offset: pageParam }, accessToken);

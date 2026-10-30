@@ -1,5 +1,4 @@
 import { styled } from "@mui/material";
-import { NavLink } from "react-router-dom";
 
 const EmptyPlaylistContainer = styled("div")(({ theme }) => ({
   display: "flex",
