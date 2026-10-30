@@ -59,3 +59,12 @@ export interface PlaylistEpisode extends SearchEpisode {
   restrictions: Restrictions;
   show: SearchShow;
 }
+
+export interface CreatePlaylistRequest {
+  name: string;
+  public?: boolean;
+  collaborative?: boolean;
+  description?: string;
+}
+
+export type CreatePlaylistResponse = ApiResponse<Playlist>;

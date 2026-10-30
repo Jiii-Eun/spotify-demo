@@ -1,12 +1,14 @@
 import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/material";
-import EmptyPlayList from "./EmptyPlayList";
-import ErrorMessage from "../../../../common/components/ErrorMessage";
 import LoadingSpinner from "../../../../common/components/LoadingSpinner/LoadingSpinner";
-import PlayList from "./PlayList";
+import PlayList from "./components/PlayList";
 import type { InfiniteData } from "@tanstack/react-query";
 import type { PlaylistResponse } from "../../../../types/playlistType";
-import { useGetUserPlaylists } from "../../../../hooks/usePlaylist";
+import {
+  useGetUserPlaylists,
+  useHandleCreatePlaylist,
+} from "../../../../hooks/usePlaylist";
+import EmptyPlaylist from "./components/EmptyPlayList";
 
 const SidebarRoot = styled("div")({
   display: "flex",
@@ -68,18 +70,20 @@ export default function Sidebar() {
     fetchNextPage,
   } = useGetUserPlaylists(10);
 
+  const { handleCreatePlaylist } = useHandleCreatePlaylist();
+
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message={error.message} />;
 
   return (
     <SidebarRoot>
       <SidebarHeader>
         <SidebarTitle>내 라이브러리</SidebarTitle>
-        <AddButton />
+
+        <AddButton onClick={() => handleCreatePlaylist()} />
       </SidebarHeader>
       <PlayListArea>
-        {data?.pages[0]?.items.length === 0 || !data ? (
-          <EmptyPlayList />
+        {data?.pages[0]?.items.length === 0 || !data || error ? (
+          <EmptyPlaylist handleCreatePlaylist={() => handleCreatePlaylist()} />
         ) : (
           <PlayList
             data={data as InfiniteData<PlaylistResponse>}

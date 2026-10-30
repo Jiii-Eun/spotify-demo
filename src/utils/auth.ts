@@ -3,8 +3,9 @@ import type { SpotifyAuthUrlParams } from "../types/authType";
 
 import { CLIENT_ID, SCOPE } from "../configs/authConfig";
 import { REDIRECT_URI } from "../configs/commonConfig";
+import { useQueryClient } from "@tanstack/react-query";
 
-export const getSpotifyAuthUrl = async () => {
+const getSpotifyAuthUrl = async () => {
   const codeVerifier = generateRandomString(64);
 
   const hashed = await sha256(codeVerifier);

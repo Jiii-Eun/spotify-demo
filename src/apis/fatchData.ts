@@ -4,6 +4,7 @@ import { queryClient } from "../queryClient";
 export const fetchData = async <T>(
   endpoint: string,
   clientCredentialToken?: string,
+  options?: RequestInit,
   hasToken: boolean = true,
 ): Promise<T> => {
   if (hasToken) {
@@ -14,10 +15,14 @@ export const fetchData = async <T>(
 
   try {
     const response = await fetch(`${BASE_API_URL}${endpoint}`, {
+      method: options?.method || "GET",
+      body: options?.body,
       headers: {
         Authorization: `Bearer ${clientCredentialToken}`,
         "Content-Type": "application/json",
+        ...(options?.headers as Record<string, string> | undefined),
       },
+      ...options,
     });
 
     const text = await response.text();

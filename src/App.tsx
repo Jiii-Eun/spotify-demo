@@ -5,6 +5,7 @@ import LoadingSpinner from "./common/components/LoadingSpinner/LoadingSpinner";
 import Layout from "./layout/Layout/Layout";
 import { useExchangeToken } from "./hooks/useExchangeToken";
 import { useEffect } from "react";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SearchPage = lazy(() => import("./pages/SearchPage/SearchPage"));
@@ -72,6 +73,7 @@ function App() {
             <Route path="playlist/:id" element={<PlaylistDetailPage />} />
             {/* <Route path="/playlist" element={<LibraryPage />} /> */}
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </>

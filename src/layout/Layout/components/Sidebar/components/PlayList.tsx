@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import type { InfiniteData } from "@tanstack/react-query";
-import type { PlaylistResponse } from "../../../../types/playlistType";
+import type { PlaylistResponse } from "../../../../../types/playlistType";
 import PlayListCard from "./PlayListCard";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";

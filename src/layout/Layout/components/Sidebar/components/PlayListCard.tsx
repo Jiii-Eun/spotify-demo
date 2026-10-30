@@ -2,7 +2,7 @@ import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { styled } from "@mui/material";
 import { useParams } from "react-router-dom";
-import type { Playlist } from "../../../../types/playlistType";
+import type { Playlist } from "../../../../../types/playlistType";
 
 const CardRoot = styled("div", {
   shouldForwardProp: (prop) => prop !== "isActive",
