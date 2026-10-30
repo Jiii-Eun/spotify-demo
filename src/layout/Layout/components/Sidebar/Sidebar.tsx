@@ -8,7 +8,8 @@ import {
   useGetUserPlaylists,
   useHandleCreatePlaylist,
 } from "../../../../hooks/usePlaylist";
-import EmptyPlaylist from "./components/EmptyPlayList";
+import EmptyPlaylist from "./components/EmptyPlaylist";
+import { useEffect, useState } from "react";
 
 const SidebarRoot = styled("div")({
   display: "flex",
@@ -72,6 +73,16 @@ export default function Sidebar() {
 
   const { handleCreatePlaylist } = useHandleCreatePlaylist();
 
+  const [accessToken, setAccessToken] = useState(() =>
+    localStorage.getItem("access_token"),
+  );
+
+  useEffect(() => {
+    const sync = () => setAccessToken(localStorage.getItem("access_token"));
+    window.addEventListener("auth-change", sync);
+    return () => window.removeEventListener("auth-change", sync);
+  }, []);
+
   if (isLoading) return <LoadingSpinner />;
 
   return (
@@ -82,7 +93,10 @@ export default function Sidebar() {
         <AddButton onClick={() => handleCreatePlaylist()} />
       </SidebarHeader>
       <PlayListArea>
-        {data?.pages[0]?.items.length === 0 || !data || error ? (
+        {data?.pages[0]?.items.length === 0 ||
+        !data ||
+        error ||
+        !accessToken ? (
           <EmptyPlaylist handleCreatePlaylist={() => handleCreatePlaylist()} />
         ) : (
           <PlayList

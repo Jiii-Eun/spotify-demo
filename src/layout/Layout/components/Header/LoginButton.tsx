@@ -6,6 +6,7 @@ import Avatar from "@mui/material/Avatar";
 
 import { login, logout } from "../../../../utils/userAuth";
 import { useGetCurrentUserProfile } from "../../../../hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
 const Root = styled("div")({
   position: "relative",
@@ -134,7 +135,7 @@ export default function LoginButton() {
   const { data: userProfile } = useGetCurrentUserProfile();
   const isLoggedIn = !!userProfile;
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const imageUrl = userProfile?.images?.[0]?.url;
   const displayName = userProfile?.display_name;
 
@@ -162,6 +163,7 @@ export default function LoginButton() {
   const handleLogout = () => {
     logout();
     setIsOpen(false);
+    navigate("/");
   };
 
   return (

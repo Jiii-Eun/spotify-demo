@@ -7,8 +7,6 @@ export const login = () => {
 
 export const logout = () => {
   localStorage.removeItem("access_token");
-  queryClient.removeQueries({ queryKey: ["currentUserProfile"] });
-  queryClient.removeQueries({ queryKey: ["userPlaylists"] });
-  queryClient.removeQueries({ queryKey: ["playlistItems"] });
-  queryClient.removeQueries({ queryKey: ["playList"] });
+  queryClient.clear();
+  window.dispatchEvent(new Event("auth-change"));
 };

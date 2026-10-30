@@ -48,7 +48,7 @@ export const useGetPlaylistItems = (params: GetPlaylistItemsRequest) => {
       }
       return getPlaylistItems({ offset: pageParam, ...params }, accessToken);
     },
-    enabled: !!params.playlist_id,
+    enabled: !!accessToken && !!params.playlist_id,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       if (!lastPage.next) return undefined;

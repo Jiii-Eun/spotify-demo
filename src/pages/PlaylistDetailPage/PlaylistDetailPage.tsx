@@ -8,6 +8,7 @@ import LoadingSpinner from "../../common/components/LoadingSpinner/LoadingSpinne
 import type { InfiniteData } from "@tanstack/react-query";
 import type { GetPlaylistItemsResponse } from "../../types/playlistType";
 import { styled } from "@mui/material";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 const PageRoot = styled("div")({
   display: "flex",
@@ -48,9 +49,10 @@ export default function PlaylistDetailPage() {
 
   if (!id) return <Navigate to="/" />;
 
+  const accessToken = localStorage.getItem("access_token");
+
   if (isPlaylistItemsLoading) return <LoadingSpinner />;
-  if (playlistItemsError)
-    return <ErrorMessage message={playlistItemsError.message} />;
+  if (!accessToken || playlistItemsError) return <NotFoundPage />;
 
   return (
     <PageRoot>
