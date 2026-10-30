@@ -1,7 +1,3 @@
-import { useParams } from "react-router-dom";
-
-export default function SearchResultPage() {
-  const { query } = useParams();
-
-  return <div>SearchResultPage {query}</div>;
+export default function SearchResultPage({ searchResult }: { searchResult }) {
+  return <div>SearchResultPage {searchResult.tracks.items[0].name}</div>;
 }

@@ -1,6 +1,8 @@
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import { IconButton, InputBase, styled } from "@mui/material";
+import { useState } from "react";
+import SearchResultPage from "../../SearchResultPage/SearchResultPage";
 
 const Root = styled("div")(({ theme }) => ({
   display: "flex",
@@ -87,6 +89,17 @@ const closeIconSx = {
 } as const;
 
 export default function AddTracks() {
+  const [keyword, setKeyword] = useState("");
+
+  const { data: searchResults } = useGetSearch({
+    q: keyword,
+    type: [SEARCH_TYPE.Track],
+  });
+
+  const handleSearchKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  };
+
   return (
     <Root>
       <HeaderRow>
@@ -102,8 +115,14 @@ export default function AddTracks() {
           placeholder="곡 또는 에피소드 검색하기"
           inputProps={{ "aria-label": "곡 또는 에피소드 검색하기" }}
           sx={searchInputSx}
+          value={keyword}
+          onChange={handleSearchKeyword}
         />
       </SearchField>
+
+      {searchResults?.tracks.items.map((track) => (
+        <SearchResultPage key={track.id} searchResult={track} />
+      ))}
     </Root>
   );
 }
