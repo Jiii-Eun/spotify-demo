@@ -26,18 +26,21 @@ export const fetchData = async <T>(
     });
 
     const text = await response.text();
-    if (!response.ok) {
-      throw new Error(`Request failed: ${response.status} ${text}`);
-    }
+
     if (response.status === 401) {
       const storedAccessToken = localStorage.getItem("access_token");
 
       if (storedAccessToken && clientCredentialToken === storedAccessToken) {
         localStorage.removeItem("access_token");
-        queryClient.removeQueries({ queryKey: ["playList"] });
+        queryClient.removeQueries({ queryKey: ["userPlaylists"] });
         queryClient.removeQueries({ queryKey: ["currentUserProfile"] });
+        queryClient.removeQueries({ queryKey: ["searchResults"] });
       }
 
+      throw new Error(`Request failed: ${response.status} ${text}`);
+    }
+
+    if (!response.ok) {
       throw new Error(`Request failed: ${response.status} ${text}`);
     }
     return JSON.parse(text) as T;

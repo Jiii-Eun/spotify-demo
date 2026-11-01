@@ -9,6 +9,34 @@ import type {
   Copyright,
   ResumePoint,
 } from "./commonType";
+import type { InfiniteData } from "@tanstack/react-query";
+
+export type SearchInfiniteData = InfiniteData<SearchResponse, number>;
+
+export type SearchRow = {
+  key: string;
+  title: string;
+  subtitle?: string;
+  meta?: string;
+  imageUrl?: string;
+};
+
+export type SearchType =
+  | "track"
+  | "album"
+  | "artist"
+  | "playlist"
+  | "show"
+  | "episode"
+  | "audiobook";
+
+export interface SearchRequest {
+  q: string;
+  type: SearchType;
+  limit?: number;
+  offset?: number;
+  include_external?: "audio";
+}
 
 export interface SearchResponse {
   tracks: ApiResponse<SearchTrack>;
@@ -17,6 +45,7 @@ export interface SearchResponse {
   playlists: ApiResponse<SearchPlaylist>;
   shows: ApiResponse<SearchShow>;
   episodes: ApiResponse<SearchEpisode>;
+  audiobooks: ApiResponse<SearchAudiobooks>;
 }
 
 export interface SearchExternal extends Artist {
