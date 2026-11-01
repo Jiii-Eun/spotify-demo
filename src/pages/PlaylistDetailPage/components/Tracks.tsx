@@ -78,13 +78,13 @@ const DurationHeader = styled(HeaderCell)({
 const durationIconSx = {
   fontSize: 18,
   color: "text.secondary",
-} as const;
+};
 
 const sortIconSx = {
   fontSize: 20,
   color: "text.secondary",
   ml: -0.5,
-} as const;
+};
 
 const TrackList = styled("div")({
   display: "flex",

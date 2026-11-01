@@ -1,6 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import { IconButton, InputBase, styled } from "@mui/material";
+import { useState } from "react";
 
 const Root = styled("div")(({ theme }) => ({
   display: "flex",
@@ -56,7 +57,7 @@ const searchIconSx = {
   fontSize: 20,
   color: "text.secondary",
   flexShrink: 0,
-} as const;
+};
 
 const searchInputSx = {
   flex: 1,
@@ -70,7 +71,7 @@ const searchInputSx = {
       opacity: 1,
     },
   },
-} as const;
+};
 
 const closeButtonSx = {
   color: "text.primary",
@@ -80,13 +81,19 @@ const closeButtonSx = {
     backgroundColor: "transparent",
     color: "text.secondary",
   },
-} as const;
+};
 
 const closeIconSx = {
   fontSize: 24,
-} as const;
+};
 
 export default function AddTracks() {
+  const [keyword, setKeyword] = useState<string>("");
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+  };
+
   return (
     <Root>
       <HeaderRow>
@@ -102,6 +109,8 @@ export default function AddTracks() {
           placeholder="곡 또는 에피소드 검색하기"
           inputProps={{ "aria-label": "곡 또는 에피소드 검색하기" }}
           sx={searchInputSx}
+          value={keyword}
+          onChange={handleSearch}
         />
       </SearchField>
     </Root>

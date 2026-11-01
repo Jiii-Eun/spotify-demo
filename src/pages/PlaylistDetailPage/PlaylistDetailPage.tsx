@@ -3,7 +3,6 @@ import { useGetPlaylistItems } from "../../hooks/usePlaylist";
 import PlaylistDetailContent from "./components/PlaylistDetailContent";
 import PlaylistDetailFooter from "./components/PlaylistDetailFooter";
 import PlaylistDetailHeader from "./components/PlaylistDetailHeader";
-import ErrorMessage from "../../common/components/ErrorMessage";
 import LoadingSpinner from "../../common/components/LoadingSpinner/LoadingSpinner";
 import type { InfiniteData } from "@tanstack/react-query";
 import type { GetPlaylistItemsResponse } from "../../types/playlistType";

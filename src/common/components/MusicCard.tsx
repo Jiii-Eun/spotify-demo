@@ -2,7 +2,7 @@ import { alpha, styled } from "@mui/material/styles";
 import PlayButton from "./PlayButton";
 import type { MusicCardProps } from "../../types/cardType";
 
-const CARD_COLORS = ["primary", "info", "warning", "success", "error"] as const;
+const CARD_COLORS = ["primary", "info", "warning", "success", "error"];
 
 const CardRoot = styled("div")({
   position: "relative",

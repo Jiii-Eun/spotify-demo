@@ -10,6 +10,25 @@ import type {
   ResumePoint,
 } from "./commonType";
 
+// all search
+export interface SearchRequest {
+  q: string;
+  type: SearchType;
+  market?: string;
+  limit?: number;
+  offset?: number;
+  include_external?: string;
+}
+
+export type SearchType =
+  | "track"
+  | "artist"
+  | "album"
+  | "playlist"
+  | "show"
+  | "episode"
+  | "audiobook";
+
 export interface SearchResponse {
   tracks: ApiResponse<SearchTrack>;
   artists: ApiResponse<SearchExternal>;
@@ -17,6 +36,7 @@ export interface SearchResponse {
   playlists: ApiResponse<SearchPlaylist>;
   shows: ApiResponse<SearchShow>;
   episodes: ApiResponse<SearchEpisode>;
+  audiobooks: ApiResponse<SearchAudiobooks>;
 }
 
 export interface SearchExternal extends Artist {
