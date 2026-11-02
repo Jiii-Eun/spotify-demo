@@ -1,10 +1,7 @@
 import { Button, styled } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import type {
-  SearchInfiniteData,
-  SearchResponse,
-} from "../../../types/searchType";
+import type { SearchResponse } from "../../../types/searchType";
 import { toSearchRows } from "../../../utils/searchDataFillter";
 
 const List = styled("div")(({ theme }) => ({
@@ -14,7 +11,15 @@ const List = styled("div")(({ theme }) => ({
   minWidth: 0,
   maxHeight: 360,
   overflowY: "auto",
+  overflowX: "hidden",
   overscrollBehavior: "contain",
+  "&::-webkit-scrollbar": {
+    width: 8,
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: theme.palette.background.black100,
+    borderRadius: 8,
+  },
   [theme.breakpoints.down("sm")]: {
     maxHeight: 280,
   },
@@ -133,7 +138,7 @@ export default function SearchDropdown({
   onAddTrack,
   isAdding,
 }: {
-  searchResults: SearchInfiniteData;
+  searchResults: SearchResponse[];
   checkType: keyof SearchResponse;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
@@ -146,7 +151,7 @@ export default function SearchDropdown({
     root: scrollRoot,
     rootMargin: "80px 0px",
   });
-  const rows = toSearchRows(checkType, searchResults.pages);
+  const rows = toSearchRows(checkType, searchResults);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {

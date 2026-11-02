@@ -3,7 +3,7 @@ import { InputBase, styled } from "@mui/material";
 import { useState } from "react";
 import { useGetSearch } from "../../../hooks/useSearch";
 import { usePostAddPlaylistItems } from "../../../hooks/usePlaylist";
-import type { SearchResponse, SearchType } from "../../../types/searchType";
+import type { SearchType } from "../../../types/searchType";
 import SearchTypeFilter from "./SearchTypeFilter";
 import SearchDropdown from "./SearchDropdown";
 import { SEARCH_TYPE_OPTIONS_MAP } from "../../../configs/searchConfig";
@@ -89,7 +89,9 @@ export default function SearchField({ playlistId }: { playlistId: string }) {
     });
   };
 
-  const checkType = SEARCH_TYPE_OPTIONS_MAP[searchType] as keyof SearchResponse;
+  const checkType = SEARCH_TYPE_OPTIONS_MAP[searchType];
+
+  const pages = searchResults?.pages ?? [];
 
   return (
     <Root>
@@ -107,7 +109,7 @@ export default function SearchField({ playlistId }: { playlistId: string }) {
 
       {searchResults && (
         <SearchDropdown
-          searchResults={searchResults}
+          searchResults={pages}
           checkType={checkType}
           hasNextPage={!!hasNextPage}
           isFetchingNextPage={isFetchingNextPage}

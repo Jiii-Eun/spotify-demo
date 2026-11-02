@@ -34,6 +34,7 @@ export type SearchType =
 export interface SearchRequest {
   q: string;
   type: SearchType;
+  market?: string;
   limit?: number;
   offset?: number;
   include_external?: "audio";

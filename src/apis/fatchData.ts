@@ -1,5 +1,6 @@
 import { BASE_API_URL } from "../configs/commonConfig";
 import { queryClient } from "../queryClient";
+import { logout } from "../utils/userAuth";
 
 export const fetchData = async <T>(
   endpoint: string,
@@ -9,7 +10,7 @@ export const fetchData = async <T>(
 ): Promise<T> => {
   if (hasToken) {
     if (!clientCredentialToken) {
-      throw new Error("Client credential token is not found");
+      logout();
     }
   }
 

@@ -1,14 +1,15 @@
-import type { SearchType } from "../types/searchType";
+import type { SearchResponse, SearchType } from "../types/searchType";
 
-export const SEARCH_TYPE_OPTIONS_MAP = {
-  track: "tracks",
-  album: "albums",
-  artist: "artists",
-  playlist: "playlists",
-  show: "shows",
-  episode: "episodes",
-  audiobook: "audiobooks",
-};
+export const SEARCH_TYPE_OPTIONS_MAP: Record<SearchType, keyof SearchResponse> =
+  {
+    track: "tracks",
+    album: "albums",
+    artist: "artists",
+    playlist: "playlists",
+    show: "shows",
+    episode: "episodes",
+    audiobook: "audiobooks",
+  };
 
 export const SEARCH_TYPE_LABELS: Record<SearchType, string> = {
   track: "곡",
