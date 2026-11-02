@@ -11,7 +11,15 @@ const List = styled("div")(({ theme }) => ({
   minWidth: 0,
   maxHeight: 360,
   overflowY: "auto",
+  overflowX: "hidden",
   overscrollBehavior: "contain",
+  "&::-webkit-scrollbar": {
+    width: 8,
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: theme.palette.background.black100,
+    borderRadius: 8,
+  },
   [theme.breakpoints.down("sm")]: {
     maxHeight: 280,
   },
