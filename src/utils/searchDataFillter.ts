@@ -19,11 +19,12 @@ export function toSearchRows(
     case "tracks": {
       const items = pages.flatMap((page) => page.tracks?.items ?? []);
       return items.map((item, index) => ({
-        key: `track-${item.name}-${item.album?.name ?? ""}-${index}`,
+        key: `track-${item.id ?? item.name}-${index}`,
         title: item.name,
         subtitle: joinNames(item.artists),
         meta: item.album?.name,
         imageUrl: getImageUrl(item.album?.images),
+        uri: item.uri,
       }));
     }
     case "albums": {

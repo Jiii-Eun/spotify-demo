@@ -100,7 +100,7 @@ export default function PlaylistDetailContent({
               <CloseIcon sx={closeIconSx} />
             </IconButton>
           </HeaderRow>
-          <SearchField />
+          <SearchField playlistId={id} />
         </Root>
       ) : (
         <Tracks tracks={tracks} ref={ref} />

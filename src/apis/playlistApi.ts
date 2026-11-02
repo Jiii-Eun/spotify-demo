@@ -5,6 +5,8 @@ import type {
   GetPlaylistItemsResponse,
   CreatePlaylistRequest,
   CreatePlaylistResponse,
+  AddPlaylistItemsRequest,
+  AddPlaylistItemsResponse,
 } from "../types/playlistType";
 import type { Options } from "../types/commonType";
 
@@ -62,6 +64,21 @@ export const postCreatePlaylist = async (
     {
       method: "POST",
       body: JSON.stringify(params),
+    },
+  );
+};
+
+export const postAddPlaylistItems = async (
+  playlistId: string,
+  body: AddPlaylistItemsRequest,
+  accessToken: string,
+) => {
+  return await fetchData<AddPlaylistItemsResponse>(
+    `/playlists/${playlistId}/items`,
+    accessToken,
+    {
+      method: "POST",
+      body: JSON.stringify(body),
     },
   );
 };

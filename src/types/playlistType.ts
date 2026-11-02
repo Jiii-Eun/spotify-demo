@@ -68,3 +68,12 @@ export interface CreatePlaylistRequest {
 }
 
 export type CreatePlaylistResponse = ApiResponse<Playlist>;
+
+export interface AddPlaylistItemsRequest {
+  uris: string[];
+  position?: number;
+}
+
+export interface AddPlaylistItemsResponse {
+  snapshot_id: string;
+}

@@ -112,6 +112,11 @@ const AddButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.background.black100,
     borderColor: theme.palette.text.primary,
   },
+  "&.Mui-disabled": {
+    borderColor: theme.palette.text.secondary,
+    color: theme.palette.text.secondary,
+    opacity: 0.5,
+  },
 }));
 
 const Sentinel = styled("div")({
@@ -125,12 +130,16 @@ export default function SearchDropdown({
   hasNextPage,
   isFetchingNextPage,
   fetchNextPage,
+  onAddTrack,
+  isAdding,
 }: {
   searchResults: SearchInfiniteData;
   checkType: keyof SearchResponse;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => void;
+  onAddTrack?: (uri: string) => void;
+  isAdding?: boolean;
 }) {
   const [scrollRoot, setScrollRoot] = useState<HTMLDivElement | null>(null);
   const { ref, inView } = useInView({
@@ -149,21 +158,34 @@ export default function SearchDropdown({
 
   return (
     <List ref={setScrollRoot}>
-      {rows.map((row) => (
-        <Row key={row.key}>
-          {row.imageUrl ? (
-            <Cover src={row.imageUrl} alt="" />
-          ) : (
-            <CoverFallback aria-hidden />
-          )}
-          <ItemInfo>
-            <ItemTitle>{row.title}</ItemTitle>
-            {row.subtitle ? <ItemSubtitle>{row.subtitle}</ItemSubtitle> : null}
-          </ItemInfo>
-          <ItemMeta className="search-meta">{row.meta ?? ""}</ItemMeta>
-          <AddButton disableRipple>추가하기</AddButton>
-        </Row>
-      ))}
+      {rows.map((row) => {
+        const canAdd = Boolean(row.uri && onAddTrack);
+
+        return (
+          <Row key={row.key}>
+            {row.imageUrl ? (
+              <Cover src={row.imageUrl} alt="" />
+            ) : (
+              <CoverFallback aria-hidden />
+            )}
+            <ItemInfo>
+              <ItemTitle>{row.title}</ItemTitle>
+              {row.subtitle ? <ItemSubtitle>{row.subtitle}</ItemSubtitle> : null}
+            </ItemInfo>
+            <ItemMeta className="search-meta">{row.meta ?? ""}</ItemMeta>
+            <AddButton
+              disableRipple
+              disabled={!canAdd || isAdding}
+              onClick={() => {
+                if (!row.uri || !onAddTrack) return;
+                onAddTrack(row.uri);
+              }}
+            >
+              추가하기
+            </AddButton>
+          </Row>
+        );
+      })}
       <Sentinel ref={ref} />
     </List>
   );

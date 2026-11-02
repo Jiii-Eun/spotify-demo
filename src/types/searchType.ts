@@ -19,6 +19,7 @@ export type SearchRow = {
   subtitle?: string;
   meta?: string;
   imageUrl?: string;
+  uri?: string;
 };
 
 export type SearchType =
@@ -61,9 +62,11 @@ export interface SearchTrack {
   external_ids: ExternalIds;
   is_playable: boolean;
   restrictions: Restrictions;
+  id: string;
   name: string;
   track_number: number;
   is_local: boolean;
+  uri: string;
 }
 
 export interface SearchAlbum extends SearchExternal {

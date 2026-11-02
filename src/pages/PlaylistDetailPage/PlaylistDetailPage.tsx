@@ -1,7 +1,6 @@
 import { Navigate, useParams } from "react-router-dom";
 import { useGetPlaylistItems } from "../../hooks/usePlaylist";
 import PlaylistDetailContent from "./components/PlaylistDetailContent";
-import PlaylistDetailFooter from "./components/PlaylistDetailFooter";
 import PlaylistDetailHeader from "./components/PlaylistDetailHeader";
 import LoadingSpinner from "../../common/components/LoadingSpinner/LoadingSpinner";
 import type { InfiniteData } from "@tanstack/react-query";
@@ -20,12 +19,6 @@ const PageRoot = styled("div")({
 });
 
 const HeaderSection = styled("div")({
-  flexShrink: 0,
-  width: "100%",
-  minWidth: 0,
-});
-
-const FooterSection = styled("div")({
   flexShrink: 0,
   width: "100%",
   minWidth: 0,
@@ -65,9 +58,6 @@ export default function PlaylistDetailPage() {
         isFetchingNextPage={isFetchingNextPage}
         fetchNextPage={fetchNextPage}
       />
-      <FooterSection>
-        <PlaylistDetailFooter id={id} />
-      </FooterSection>
     </PageRoot>
   );
 }

@@ -6,6 +6,7 @@ import {
 import {
   getPlaylistItems,
   getUserPlaylists,
+  postAddPlaylistItems,
   postCreatePlaylist,
 } from "../apis/playlistApi";
 import type {
@@ -75,6 +76,24 @@ export const usePostCreatePlaylist = () => {
       return postCreatePlaylist(data, accessToken);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["userPlaylists"] });
+    },
+  });
+};
+
+export const usePostAddPlaylistItems = (playlistId: string) => {
+  const accessToken = localStorage.getItem("access_token");
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (uri: string) => {
+      if (!accessToken) {
+        throw new Error("Access token is not found");
+      }
+      return postAddPlaylistItems(playlistId, { uris: [uri] }, accessToken);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["playlistItems"] });
       queryClient.invalidateQueries({ queryKey: ["userPlaylists"] });
     },
   });
