@@ -32,6 +32,7 @@ export const useGetSearch = (params: SearchRequest) => {
         ...rest,
       });
     },
+    enabled: !!q.trim() && !!clientCredentialToken,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       const key = SEARCH_TYPE_OPTIONS_MAP[type];

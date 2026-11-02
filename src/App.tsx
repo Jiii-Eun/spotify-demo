@@ -1,5 +1,5 @@
 import "./App.css";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useRef } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingSpinner from "./common/components/LoadingSpinner/LoadingSpinner";
 import Layout from "./layout/Layout/Layout";
@@ -47,15 +47,18 @@ function App() {
 
   const { mutate: exchangeToken } = useExchangeToken();
 
+  const exchanged = useRef(false);
+
   useEffect(() => {
-    if (!code || !codeVerifier) return;
+    if (!code || !codeVerifier || exchanged.current) return;
+    exchanged.current = true;
 
     exchangeToken(
       { code, codeVerifier },
       {
         onSettled: () => {
           localStorage.removeItem("code_verifier");
-          window.history.replaceState({}, "", "/");
+          window.history.replaceState({}, document.title, "/");
         },
       },
     );

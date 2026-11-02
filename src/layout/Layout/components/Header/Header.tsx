@@ -1,7 +1,7 @@
-import { InputBase, styled } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { styled } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import LoginButton from "./LoginButton";
+import SearchField from "../../../../common/components/Search/SearchField";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   height: "100%",
@@ -18,6 +18,8 @@ const HeaderLeft = styled("div")(({ theme }) => ({
   alignItems: "center",
   gap: 48,
   marginLeft: 16,
+  flex: 1,
+  minWidth: 0,
   [theme.breakpoints.down("sm")]: {
     marginLeft: 8,
     gap: 8,
@@ -30,32 +32,7 @@ const Logo = styled("img")(({ theme }) => ({
   objectFit: "contain",
   borderRadius: "50%",
   backgroundColor: theme.palette.secondary.main,
-}));
-
-const SearchBar = styled("div")(({ theme }) => ({
-  height: "100%",
-  display: "flex",
-  alignItems: "center",
-  gap: 8,
-  padding: "8px",
-  backgroundColor: theme.palette.background.black400,
-  border: `1px solid transparent`,
-  borderRadius: "999px",
-  "&:hover": {
-    backgroundColor: theme.palette.background.black300,
-    border: `1px solid ${theme.palette.background.black200}`,
-  },
-  "&:focus-within": {
-    backgroundColor: theme.palette.background.black300,
-    border: `1px solid ${theme.palette.secondary.main}`,
-  },
-}));
-
-const SearchLink = styled(NavLink)(({ theme }) => ({
-  fontSize: 16,
-  width: 38,
-  color: "#b3b3b3",
-  "&:hover": { color: theme.palette.primary.main },
+  flexShrink: 0,
 }));
 
 export default function Header() {
@@ -67,29 +44,7 @@ export default function Header() {
             <Logo src="/logo.png" alt="logo" />
           </NavLink>
         </h1>
-        <SearchBar>
-          <SearchIcon
-            sx={(theme) => ({
-              color: "#b3b3b3",
-              "&:hover": { scale: 1.1, color: theme.palette.primary.main },
-            })}
-          />
-          <InputBase
-            placeholder="원하는 음악을 검색하세요"
-            style={{ textOverflow: "ellipsis", flex: 1 }}
-          />
-          <div
-            style={{
-              color: "#b3b3b3",
-              display: "flex",
-              alignItems: "center",
-              lineHeight: 1,
-            }}
-          >
-            |
-          </div>
-          <SearchLink to="/search">검색</SearchLink>
-        </SearchBar>
+        <SearchField variant="header" />
       </HeaderLeft>
       <LoginButton />
     </HeaderContainer>
