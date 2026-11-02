@@ -7,21 +7,20 @@ import { toSearchRows } from "../../../utils/searchDataFillter";
 const List = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  flex: 1,
   width: "100%",
   minWidth: 0,
-  maxHeight: 360,
+  minHeight: 0,
   overflowY: "auto",
   overflowX: "hidden",
   overscrollBehavior: "contain",
+  paddingBottom: 8,
   "&::-webkit-scrollbar": {
     width: 8,
   },
   "&::-webkit-scrollbar-thumb": {
     backgroundColor: theme.palette.background.black100,
     borderRadius: 8,
-  },
-  [theme.breakpoints.down("sm")]: {
-    maxHeight: 280,
   },
 }));
 
@@ -150,6 +149,7 @@ export default function SearchDropdown({
   const { ref, inView } = useInView({
     root: scrollRoot,
     rootMargin: "80px 0px",
+    skip: !scrollRoot,
   });
   const rows = toSearchRows(checkType, searchResults);
 
@@ -175,7 +175,9 @@ export default function SearchDropdown({
             )}
             <ItemInfo>
               <ItemTitle>{row.title}</ItemTitle>
-              {row.subtitle ? <ItemSubtitle>{row.subtitle}</ItemSubtitle> : null}
+              {row.subtitle ? (
+                <ItemSubtitle>{row.subtitle}</ItemSubtitle>
+              ) : null}
             </ItemInfo>
             <ItemMeta className="search-meta">{row.meta ?? ""}</ItemMeta>
             <AddButton

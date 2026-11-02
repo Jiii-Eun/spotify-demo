@@ -1,12 +1,14 @@
 import CloseIcon from "@mui/icons-material/Close";
-import SearchIcon from "@mui/icons-material/Search";
-import { IconButton, InputBase, styled } from "@mui/material";
-import { useState } from "react";
+import { IconButton, styled } from "@mui/material";
+import SearchField from "../../../common/components/Search/SearchField";
 
 const Root = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  gap: 16,
+  flex: 1,
+  minHeight: 0,
+  overflow: "hidden",
+  gap: 20,
   width: "100%",
   minWidth: 0,
   boxSizing: "border-box",
@@ -22,6 +24,7 @@ const HeaderRow = styled("div")({
   gap: 16,
   width: "100%",
   minWidth: 0,
+  flexShrink: 0,
 });
 
 const Title = styled("h2")(({ theme }) => ({
@@ -37,42 +40,6 @@ const Title = styled("h2")(({ theme }) => ({
   },
 }));
 
-const SearchField = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: 10,
-  width: "100%",
-  maxWidth: 420,
-  minWidth: 0,
-  boxSizing: "border-box",
-  padding: "10px 12px",
-  borderRadius: 4,
-  backgroundColor: theme.palette.background.black300,
-  [theme.breakpoints.down("sm")]: {
-    maxWidth: "100%",
-  },
-}));
-
-const searchIconSx = {
-  fontSize: 20,
-  color: "text.secondary",
-  flexShrink: 0,
-};
-
-const searchInputSx = {
-  flex: 1,
-  minWidth: 0,
-  fontSize: 14,
-  color: "text.primary",
-  "& .MuiInputBase-input": {
-    padding: 0,
-    "&::placeholder": {
-      color: "text.secondary",
-      opacity: 1,
-    },
-  },
-};
-
 const closeButtonSx = {
   color: "text.primary",
   padding: 0.5,
@@ -87,13 +54,7 @@ const closeIconSx = {
   fontSize: 24,
 };
 
-export default function AddTracks() {
-  const [keyword, setKeyword] = useState<string>("");
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
-
+export default function AddTracks({ playlistId }: { playlistId: string }) {
   return (
     <Root>
       <HeaderRow>
@@ -103,16 +64,7 @@ export default function AddTracks() {
         </IconButton>
       </HeaderRow>
 
-      <SearchField>
-        <SearchIcon sx={searchIconSx} />
-        <InputBase
-          placeholder="곡 또는 에피소드 검색하기"
-          inputProps={{ "aria-label": "곡 또는 에피소드 검색하기" }}
-          sx={searchInputSx}
-          value={keyword}
-          onChange={handleSearch}
-        />
-      </SearchField>
+      <SearchField playlistId={playlistId} />
     </Root>
   );
 }

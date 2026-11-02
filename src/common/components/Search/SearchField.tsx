@@ -21,9 +21,13 @@ type SearchFieldProps = {
 const Root = styled("div")({
   display: "flex",
   flexDirection: "column",
-  gap: 16,
-  width: "100%",
+  flex: 1,
+  minHeight: 0,
   minWidth: 0,
+  width: "100%",
+  overflow: "hidden",
+  gap: 16,
+  borderRadius: 0,
 });
 
 const SearchContainer = styled("div", {
@@ -59,6 +63,7 @@ const SearchContainer = styled("div", {
     gap: 10,
     width: "100%",
     minWidth: 0,
+    flexShrink: 0,
     maxWidth: variant === "page" ? 520 : undefined,
     boxSizing: "border-box",
     padding: "10px 12px",

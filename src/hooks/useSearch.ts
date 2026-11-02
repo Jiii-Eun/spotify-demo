@@ -41,7 +41,8 @@ export const useGetSearch = (params: SearchRequest) => {
 
       const url = new URL(next);
       const nextOffset = url.searchParams.get("offset");
-      return nextOffset ? parseInt(nextOffset) : 0;
+      if (!nextOffset) return undefined;
+      return parseInt(nextOffset, 10);
     },
   });
 };
