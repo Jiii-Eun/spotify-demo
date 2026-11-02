@@ -1,24 +1,11 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
 import useClientCredentialToken from "./useClientCredentialToken";
 import { getSearch } from "../apis/searchApi";
-import type {
-  SearchRequest,
-  SearchResponse,
-  SearchType,
-} from "../types/searchType";
+import type { SearchRequest, SearchResponse } from "../types/searchType";
+import { SEARCH_TYPE_OPTIONS_MAP } from "../configs/searchConfig";
 
 export const useGetSearch = (params: SearchRequest) => {
   const clientCredentialToken = useClientCredentialToken();
-
-  const SEARCH_RESULT_KEY: Record<SearchType, keyof SearchResponse> = {
-    track: "tracks",
-    artist: "artists",
-    album: "albums",
-    playlist: "playlists",
-    show: "shows",
-    episode: "episodes",
-    audiobook: "audiobooks",
-  };
 
   if (!params) {
     throw new Error("Params are required");
@@ -26,7 +13,13 @@ export const useGetSearch = (params: SearchRequest) => {
 
   const { q, type, ...rest } = params;
 
-  return useInfiniteQuery({
+  return useInfiniteQuery<
+    SearchResponse,
+    Error,
+    InfiniteData<SearchResponse, number>,
+    readonly unknown[],
+    number
+  >({
     queryKey: ["search", q, type, rest],
     queryFn: ({ pageParam }) => {
       if (!clientCredentialToken) {
@@ -41,7 +34,7 @@ export const useGetSearch = (params: SearchRequest) => {
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      const key = SEARCH_RESULT_KEY[type];
+      const key = SEARCH_TYPE_OPTIONS_MAP[type];
       const next = lastPage[key]?.next ?? null;
       if (!next) return undefined;
 

@@ -7,14 +7,11 @@ export const getSearch = async (
 ) => {
   const { q, type, ...rest } = params;
 
-  let queryString = new URLSearchParams(
-    Object.entries(rest)
-      .map(([key, value]) => [key, value?.toString() ?? ""])
-      .filter(([_, value]) => value !== ""),
-  ).toString();
-  if (queryString) {
-    queryString = `&${queryString}`;
-  }
+  const queryString = Object.entries(rest)
+    .filter(([, v]) => v != null && v !== "")
+    .map(([k, v]) => `&${k}=${v}`)
+    .join("&");
+
   return await fetchData<SearchResponse>(
     `/search?q=${q}&type=${type}${queryString}`,
     clientCredentialToken,
