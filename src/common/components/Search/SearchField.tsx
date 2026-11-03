@@ -1,7 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase, styled } from "@mui/material";
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useGetSearch } from "../../../hooks/useSearch";
 import { usePostAddPlaylistItems } from "../../../hooks/usePlaylist";
 import type { SearchType } from "../../../types/searchType";
@@ -17,6 +17,8 @@ type SearchFieldProps = {
   variant?: SearchFieldVariant;
   placeholder?: string;
 };
+
+const NAVIGATE_DEBOUNCE_MS = 300;
 
 const Root = styled("div")({
   display: "flex",
@@ -119,10 +121,36 @@ export default function SearchField({
   placeholder,
 }: SearchFieldProps) {
   const navigate = useNavigate();
-  const [keyword, setKeyword] = useState("");
+  const { query: routeQuery } = useParams<{ query?: string }>();
+  const decodedRouteQuery = routeQuery ? decodeURIComponent(routeQuery) : "";
+  const [keyword, setKeyword] = useState(decodedRouteQuery);
   const [searchType, setSearchType] = useState<SearchType>("track");
+  const [prevRouteQuery, setPrevRouteQuery] = useState(decodedRouteQuery);
 
   const isPlaylistMode = variant === "playlist" && !!playlistId;
+  const isNavigateMode = variant === "header" || variant === "page";
+
+  if (isNavigateMode && decodedRouteQuery !== prevRouteQuery) {
+    setPrevRouteQuery(decodedRouteQuery);
+    setKeyword(decodedRouteQuery);
+  }
+
+  useEffect(() => {
+    if (!isNavigateMode) return;
+
+    const q = keyword.trim();
+    if (q === decodedRouteQuery) return;
+
+    const timer = window.setTimeout(() => {
+      if (!q) {
+        navigate("/search");
+        return;
+      }
+      navigate(`/search/${encodeURIComponent(q)}`);
+    }, NAVIGATE_DEBOUNCE_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [keyword, isNavigateMode, decodedRouteQuery, navigate]);
 
   const {
     data: searchResults,
@@ -140,9 +168,7 @@ export default function SearchField({
 
   const resolvedPlaceholder =
     placeholder ??
-    (variant === "header" || variant === "page"
-      ? "원하는 음악을 검색하세요"
-      : "곡 또는 에피소드 검색하기");
+    (isNavigateMode ? "원하는 음악을 검색하세요" : "곡 또는 에피소드 검색하기");
 
   const handleSearchKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
@@ -159,7 +185,7 @@ export default function SearchField({
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== "Enter") return;
-    if (variant === "header" || variant === "page") {
+    if (isNavigateMode) {
       event.preventDefault();
       handleNavigateSearch();
     }

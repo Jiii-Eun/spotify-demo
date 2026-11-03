@@ -1,5 +1,4 @@
 import { styled } from "@mui/material";
-import SearchField from "../../common/components/Search/SearchField";
 import SearchCategorieList from "./components/SearchCategorieList";
 
 const PageRoot = styled("div")(({ theme }) => ({
@@ -32,7 +31,6 @@ const Title = styled("h2")(({ theme }) => ({
 export default function SearchPage() {
   return (
     <PageRoot>
-      <SearchField variant="page" />
       <Title>모두 둘러보기</Title>
       <SearchCategorieList />
     </PageRoot>

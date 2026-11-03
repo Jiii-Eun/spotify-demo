@@ -1,7 +1,15 @@
-import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  type InfiniteData,
+} from "@tanstack/react-query";
 import useClientCredentialToken from "./useClientCredentialToken";
 import { getSearch } from "../apis/searchApi";
-import type { SearchRequest, SearchResponse } from "../types/searchType";
+import type {
+  SearchRequest,
+  SearchResponse,
+  SearchType,
+} from "../types/searchType";
 import { SEARCH_TYPE_OPTIONS_MAP } from "../configs/searchConfig";
 
 export const useGetSearch = (params: SearchRequest) => {
@@ -35,7 +43,7 @@ export const useGetSearch = (params: SearchRequest) => {
     enabled: !!q.trim() && !!clientCredentialToken,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      const key = SEARCH_TYPE_OPTIONS_MAP[type];
+      const key = SEARCH_TYPE_OPTIONS_MAP[type as SearchType];
       const next = lastPage[key]?.next ?? null;
       if (!next) return undefined;
 
@@ -44,5 +52,25 @@ export const useGetSearch = (params: SearchRequest) => {
       if (!nextOffset) return undefined;
       return parseInt(nextOffset, 10);
     },
+  });
+};
+
+export const useGetSearchResults = (q: string) => {
+  const clientCredentialToken = useClientCredentialToken();
+  const query = q.trim();
+
+  return useQuery<SearchResponse, Error>({
+    queryKey: ["search-results", query],
+    queryFn: () => {
+      if (!clientCredentialToken) {
+        throw new Error("Client credential token is required");
+      }
+      return getSearch(clientCredentialToken, {
+        q: query,
+        type: "track,album,artist",
+        limit: 10,
+      });
+    },
+    enabled: !!query && !!clientCredentialToken,
   });
 };

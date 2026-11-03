@@ -33,7 +33,7 @@ export type SearchType =
 
 export interface SearchRequest {
   q: string;
-  type: SearchType;
+  type: SearchType | string;
   market?: string;
   limit?: number;
   offset?: number;
