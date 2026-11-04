@@ -1,6 +1,8 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useState } from "react";
 import type { SearchTrack } from "../../../types/searchType";
+import SongPlusIcon from "./SongPlusIcon";
 
 const Section = styled("div")({
   width: "100%",
@@ -16,7 +18,9 @@ const List = styled("div")({
   gap: 4,
 });
 
-const Row = styled("div")(({ theme }) => ({
+const Row = styled("div", {
+  shouldForwardProp: (prop) => prop !== "menuOpen",
+})<{ menuOpen?: boolean }>(({ theme, menuOpen }) => ({
   display: "flex",
   alignItems: "center",
   gap: 12,
@@ -25,6 +29,13 @@ const Row = styled("div")(({ theme }) => ({
   cursor: "pointer",
   "&:hover": {
     backgroundColor: theme.palette.background.black300,
+  },
+  "& .song-plus": {
+    opacity: menuOpen ? 1 : 0,
+    transition: "opacity 0.15s ease",
+  },
+  "&:hover .song-plus": {
+    opacity: 1,
   },
 }));
 
@@ -82,23 +93,34 @@ type SongsProps = {
 };
 
 export default function Songs({ tracks }: SongsProps) {
+  const [openTrackId, setOpenTrackId] = useState<string | null>(null);
+
   if (!tracks.length) return null;
 
   return (
     <Section>
-      <Typography variant="h3">Songs</Typography>
+      <Typography variant="h3">노래</Typography>
       <List>
         {tracks.map((track) => {
           const imageUrl = track.album?.images?.[0]?.url ?? "";
           const artistName = track.artists?.map((a) => a.name).join(", ") ?? "";
+          const menuOpen = openTrackId === track.id;
 
           return (
-            <Row key={track.id}>
+            <Row key={track.id} menuOpen={menuOpen}>
               <Thumb src={imageUrl} alt={track.name} />
               <TextStack>
                 <Title>{track.name}</Title>
                 <Subtitle>{artistName}</Subtitle>
               </TextStack>
+              {track.uri ? (
+                <SongPlusIcon
+                  trackUri={track.uri}
+                  onOpenChange={(open) =>
+                    setOpenTrackId(open ? track.id : null)
+                  }
+                />
+              ) : null}
               <Duration>{formatDuration(track.duration_ms)}</Duration>
             </Row>
           );

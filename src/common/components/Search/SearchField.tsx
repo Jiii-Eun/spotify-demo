@@ -162,9 +162,7 @@ export default function SearchField({
     type: searchType,
   });
 
-  const { mutate: addTrack, isPending: isAdding } = usePostAddPlaylistItems(
-    playlistId ?? "",
-  );
+  const { mutate: addTrack, isPending: isAdding } = usePostAddPlaylistItems();
 
   const resolvedPlaceholder =
     placeholder ??
@@ -200,11 +198,14 @@ export default function SearchField({
       return;
     }
 
-    addTrack(uri, {
-      onError: () => {
-        getSpotifyAuthUrl();
+    addTrack(
+      { playlistId, uri },
+      {
+        onError: () => {
+          getSpotifyAuthUrl();
+        },
       },
-    });
+    );
   };
 
   const checkType = SEARCH_TYPE_OPTIONS_MAP[searchType];

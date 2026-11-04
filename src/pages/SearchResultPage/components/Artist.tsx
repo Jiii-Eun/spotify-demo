@@ -162,7 +162,7 @@ export default function Artist({ artists }: ArtistProps) {
 
   return (
     <Section>
-      <Typography variant="h3">Artists</Typography>
+      <Typography variant="h3">아티스트</Typography>
       <ListRoot
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}

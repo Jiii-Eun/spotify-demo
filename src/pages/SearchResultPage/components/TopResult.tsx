@@ -82,7 +82,7 @@ export default function TopResult({ item }: TopResultProps) {
 
   return (
     <Section>
-      <Typography variant="h3">Top result</Typography>
+      <Typography variant="h3">Top Result</Typography>
       <Card className="music-card">
         <CoverFrame>
           <Cover src={imageUrl} alt={title} rounded={rounded} />

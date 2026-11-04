@@ -81,12 +81,17 @@ export const usePostCreatePlaylist = () => {
   });
 };
 
-export const usePostAddPlaylistItems = (playlistId: string) => {
+export type AddPlaylistItemVars = {
+  playlistId: string;
+  uri: string;
+};
+
+export const usePostAddPlaylistItems = () => {
   const accessToken = localStorage.getItem("access_token");
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (uri: string) => {
+    mutationFn: ({ playlistId, uri }: AddPlaylistItemVars) => {
       if (!accessToken) {
         throw new Error("Access token is not found");
       }

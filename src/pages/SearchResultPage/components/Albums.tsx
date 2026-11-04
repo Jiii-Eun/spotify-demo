@@ -19,7 +19,7 @@ export default function Albums({ albums }: AlbumsProps) {
 
   return (
     <Section>
-      <Typography variant="h3">Albums</Typography>
+      <Typography variant="h3">앨범</Typography>
       <MusicCardList albums={albums} />
     </Section>
   );
