@@ -2,6 +2,7 @@ import {
   useInfiniteQuery,
   useQuery,
   type InfiniteData,
+  type UseQueryResult,
 } from "@tanstack/react-query";
 import useClientCredentialToken from "./useClientCredentialToken";
 import { getSearch } from "../apis/searchApi";
@@ -55,7 +56,9 @@ export const useGetSearch = (params: SearchRequest) => {
   });
 };
 
-export const useGetSearchResults = (q: string) => {
+export const useGetSearchResults = (
+  q: string,
+): UseQueryResult<SearchResponse, Error> => {
   const clientCredentialToken = useClientCredentialToken();
   const query = q.trim();
 
@@ -69,6 +72,30 @@ export const useGetSearchResults = (q: string) => {
         q: query,
         type: "track,album,artist",
         limit: 10,
+      });
+    },
+    enabled: !!query && !!clientCredentialToken,
+  });
+};
+
+export const useGetHomeSection = (
+  type: SearchType,
+  q: string,
+  limit = 8,
+): UseQueryResult<SearchResponse, Error> => {
+  const clientCredentialToken = useClientCredentialToken();
+  const query = q.trim();
+
+  return useQuery<SearchResponse, Error>({
+    queryKey: ["home-section", type, query, limit],
+    queryFn: () => {
+      if (!clientCredentialToken) {
+        throw new Error("Client credential token is required");
+      }
+      return getSearch(clientCredentialToken, {
+        q: query,
+        type,
+        limit,
       });
     },
     enabled: !!query && !!clientCredentialToken,

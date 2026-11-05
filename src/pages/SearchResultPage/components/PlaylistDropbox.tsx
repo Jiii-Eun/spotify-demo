@@ -134,11 +134,13 @@ const EmptyText = styled(Typography)(({ theme }) => ({
 type PlaylistDropboxProps = {
   trackUri: string;
   onClose: () => void;
+  onAdded?: () => void;
 };
 
 export default function PlaylistDropbox({
   trackUri,
   onClose,
+  onAdded,
 }: PlaylistDropboxProps) {
   const [filter, setFilter] = useState("");
   const [scrollRoot, setScrollRoot] = useState<HTMLDivElement | null>(null);
@@ -183,7 +185,10 @@ export default function PlaylistDropbox({
     addTrack(
       { playlistId, uri: trackUri },
       {
-        onSuccess: () => onClose(),
+        onSuccess: () => {
+          onClose();
+          onAdded?.();
+        },
       },
     );
   };

@@ -1,7 +1,7 @@
+import AddIcon from "@mui/icons-material/Add";
 import { Alert, IconButton, Snackbar, styled } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import PlaylistDropbox from "./PlaylistDropbox";
-import AddIcon from "@mui/icons-material/Add";
 
 const Root = styled("div")({
   position: "relative",
@@ -19,6 +19,12 @@ const PlusButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
+type ToastState = {
+  open: boolean;
+  severity: "error" | "success";
+  message: string;
+};
+
 type SongPlusIconProps = {
   trackUri: string;
   onOpenChange?: (open: boolean) => void;
@@ -29,26 +35,34 @@ export default function SongPlusIcon({
   onOpenChange,
 }: SongPlusIconProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const onOpenChangeRef = useRef(onOpenChange);
   const [open, setOpen] = useState(false);
-  const [toastOpen, setToastOpen] = useState(false);
+  const [toast, setToast] = useState<ToastState>({
+    open: false,
+    severity: "error",
+    message: "",
+  });
 
   const setDropboxOpen = (next: boolean) => {
     setOpen(next);
-    onOpenChangeRef.current?.(next);
+    onOpenChange?.(next);
   };
 
   useEffect(() => {
     if (!open) return;
 
+    const close = () => {
+      setOpen(false);
+      onOpenChange?.(false);
+    };
+
     const handlePointerDown = (event: MouseEvent) => {
       if (!rootRef.current?.contains(event.target as Node)) {
-        setDropboxOpen(false);
+        close();
       }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setDropboxOpen(false);
+      if (event.key === "Escape") close();
     };
 
     document.addEventListener("mousedown", handlePointerDown);
@@ -57,17 +71,29 @@ export default function SongPlusIcon({
       document.removeEventListener("mousedown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open]);
+  }, [open, onOpenChange]);
 
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     const accessToken = localStorage.getItem("access_token");
     if (!accessToken) {
       setDropboxOpen(false);
-      setToastOpen(true);
+      setToast({
+        open: true,
+        severity: "error",
+        message: "로그인 후 이용해주세요",
+      });
       return;
     }
     setDropboxOpen(!open);
+  };
+
+  const handleAdded = () => {
+    setToast({
+      open: true,
+      severity: "success",
+      message: "플레이리스트에 추가되었습니다",
+    });
   };
 
   return (
@@ -92,21 +118,22 @@ export default function SongPlusIcon({
         <PlaylistDropbox
           trackUri={trackUri}
           onClose={() => setDropboxOpen(false)}
+          onAdded={handleAdded}
         />
       ) : null}
 
       <Snackbar
-        open={toastOpen}
+        open={toast.open}
         autoHideDuration={3000}
-        onClose={() => setToastOpen(false)}
+        onClose={() => setToast((prev) => ({ ...prev, open: false }))}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          severity="error"
+          severity={toast.severity}
           variant="filled"
-          onClose={() => setToastOpen(false)}
+          onClose={() => setToast((prev) => ({ ...prev, open: false }))}
         >
-          로그인 후 이용해주세요
+          {toast.message}
         </Alert>
       </Snackbar>
     </Root>

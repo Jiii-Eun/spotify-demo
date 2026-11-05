@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import MusicCardList from "../../HomePage/components/MusicCardList";
 import type { SearchAlbum } from "../../../types/searchType";
+import MusicCardList from "../../../pages/HomePage/components/MusicCardList";
 
 const Section = styled("div")({
   width: "100%",

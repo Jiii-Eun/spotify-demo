@@ -5,10 +5,10 @@ import ErrorMessage from "../../common/components/ErrorMessage";
 import LoadingSpinner from "../../common/components/LoadingSpinner/LoadingSpinner";
 import { useGetSearchResults } from "../../hooks/useSearch";
 import type { SearchResponse } from "../../types/searchType";
-import Albums from "./components/Albums";
-import Artist from "./components/Artist";
 import Songs from "./components/Songs";
 import TopResult, { type TopResultItem } from "./components/TopResult";
+import Artist from "../../common/components/SlideList/Artist";
+import Albums from "../../common/components/SlideList/Albums";
 
 const Page = styled("div")({
   width: "100%",
