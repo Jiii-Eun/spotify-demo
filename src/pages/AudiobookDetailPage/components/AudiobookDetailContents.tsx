@@ -379,10 +379,10 @@ export default function AudiobookDetailContents({
         <SideCard>
           <SideCover src={coverUrl} alt={audiobook.name} />
           <SideInfo>
-            <Typography fontWeight={700} fontSize={14} noWrap>
+            <Typography noWrap sx={{ fontWeight: 700, fontSize: 14 }}>
               {audiobook.name}
             </Typography>
-            <Typography color="text.secondary" fontSize={12} noWrap>
+            <Typography color="text.secondary" noWrap sx={{ fontSize: 12 }}>
               {firstChapterDuration
                 ? `샘플 ${formatDurationLong(firstChapterDuration)}`
                 : `챕터 ${audiobook.total_chapters ?? 0}개`}

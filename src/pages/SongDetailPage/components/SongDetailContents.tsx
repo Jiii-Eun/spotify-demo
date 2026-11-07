@@ -231,7 +231,7 @@ export default function SongDetailContents({
             <Typography variant="body2" color="text.secondary">
               아티스트
             </Typography>
-            <Typography fontWeight={700} fontSize={18}>
+            <Typography sx={{ fontWeight: 700, fontSize: 18 }}>
               {artistName}
             </Typography>
           </ArtistInfo>

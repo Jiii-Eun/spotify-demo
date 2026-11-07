@@ -173,7 +173,10 @@ export default function EpisodeDetailContents({
 
       <DescriptionSection>
         <Typography variant="h3">에피소드 설명</Typography>
-        <Typography color="text.secondary" fontSize={14} lineHeight={1.7}>
+        <Typography
+          color="text.secondary"
+          sx={{ fontSize: 14, lineHeight: 1.7 }}
+        >
           {episode.description || "설명이 없습니다."}
         </Typography>
       </DescriptionSection>

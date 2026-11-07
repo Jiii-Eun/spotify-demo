@@ -343,16 +343,19 @@ export default function ShowDetailContents({ show }: ShowDetailContentsProps) {
       <Column sx={{ order: { xs: 1, md: 2 } }}>
         <Typography variant="h3">상세정보</Typography>
         <DetailCard>
-          <Typography color="text.secondary" fontSize={14} lineHeight={1.6}>
+          <Typography
+            color="text.secondary"
+            sx={{ fontSize: 14, lineHeight: 1.6 }}
+          >
             {show.description || "설명이 없습니다."}
           </Typography>
           {show.publisher ? (
-            <Typography fontSize={13} color="text.secondary">
+            <Typography color="text.secondary" sx={{ fontSize: 13 }}>
               퍼블리셔 · {show.publisher}
             </Typography>
           ) : null}
           {typeof show.total_episodes === "number" ? (
-            <Typography fontSize={13} color="text.secondary">
+            <Typography color="text.secondary" sx={{ fontSize: 13 }}>
               에피소드 {show.total_episodes}개
             </Typography>
           ) : null}
