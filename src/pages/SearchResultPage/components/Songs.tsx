@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { SearchTrack } from "../../../types/searchType";
 import SongPlusIcon from "./SongPlusIcon";
 
@@ -101,6 +102,7 @@ type SongsProps = {
 };
 
 export default function Songs({ tracks }: SongsProps) {
+  const navigate = useNavigate();
   const [openTrackId, setOpenTrackId] = useState<string | null>(null);
 
   if (!tracks.length) return null;
@@ -115,7 +117,11 @@ export default function Songs({ tracks }: SongsProps) {
           const menuOpen = openTrackId === track.id;
 
           return (
-            <Row key={track.id} menuOpen={menuOpen}>
+            <Row
+              key={track.id}
+              menuOpen={menuOpen}
+              onClick={() => navigate(`/track/${track.id}`)}
+            >
               <Thumb src={imageUrl} alt={track.name} />
               <TextStack>
                 <Title>{track.name}</Title>

@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import PlayButton from "../../../common/components/PlayButton";
 import type {
   SearchAlbum,
@@ -76,14 +77,22 @@ type TopResultProps = {
 };
 
 export default function TopResult({ item }: TopResultProps) {
+  const navigate = useNavigate();
+
   if (!item) return null;
 
   const { imageUrl, title, meta, rounded } = TopResultView(item);
 
+  const handleClick = () => {
+    if (item.kind === "track") {
+      navigate(`/track/${item.data.id}`);
+    }
+  };
+
   return (
     <Section>
       <Typography variant="h3">Top Result</Typography>
-      <Card className="music-card">
+      <Card className="music-card" onClick={handleClick}>
         <CoverFrame>
           <Cover src={imageUrl} alt={title} rounded={rounded} />
           <PlayButton />

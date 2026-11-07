@@ -3,6 +3,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GlobalStyles, IconButton, styled, Typography } from "@mui/material";
 import { useSyncExternalStore } from "react";
+import { useNavigate } from "react-router-dom";
 import type {
   PlaylistItem,
   PlaylistTrackItem,
@@ -267,6 +268,7 @@ const formatAddedAt = (addedAt: Date | string) => {
 };
 
 export default function TrackItem({ track }: { track: PlaylistItem }) {
+  const navigate = useNavigate();
   const item = track.item as PlaylistTrackItem;
   const activeId = useSyncExternalStore(
     subscribeActiveTrack,
@@ -274,7 +276,7 @@ export default function TrackItem({ track }: { track: PlaylistItem }) {
     () => null,
   );
   const isActive = activeId === item.id;
-  const { album, artists, name, duration_ms, explicit } = item;
+  const { album, artists, name, duration_ms, explicit, id } = item;
   const coverUrl = album?.images?.[0]?.url;
   const artistNames = artists?.map((artist) => artist.name).join(", ") ?? "";
 
@@ -284,7 +286,10 @@ export default function TrackItem({ track }: { track: PlaylistItem }) {
       <Row
         className="playlist-track-row"
         isActive={isActive}
-        onClick={() => setActiveTrackId(item.id)}
+        onClick={() => {
+          setActiveTrackId(id);
+          if (id) navigate(`/track/${id}`);
+        }}
         role="row"
       >
         <IndexCell className="track-index-cell">

@@ -15,6 +15,9 @@ const SearchResultPage = lazy(
 const PlaylistDetailPage = lazy(
   () => import("./pages/PlaylistDetailPage/PlaylistDetailPage"),
 );
+const SongDetailPage = lazy(
+  () => import("./pages/SongDetailPage/SongDetailPage"),
+);
 
 // 0. 레이아웃 - 사이드바(플레이 리스트, 메뉴)
 // 1. 홈페이지 `/`
@@ -74,6 +77,7 @@ function App() {
             <Route path="search" element={<SearchPage />} />
             <Route path="search/:query" element={<SearchResultPage />} />
             <Route path="playlist/:id" element={<PlaylistDetailPage />} />
+            <Route path="track/:id" element={<SongDetailPage />} />
             {/* <Route path="/playlist" element={<LibraryPage />} /> */}
           </Route>
           <Route path="*" element={<NotFoundPage />} />
