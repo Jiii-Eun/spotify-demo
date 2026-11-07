@@ -36,10 +36,10 @@ const Actions = styled("div")({
 const PlayCircle = styled(IconButton)(({ theme }) => ({
   width: 56,
   height: 56,
-  backgroundColor: theme.palette.success.main,
+  backgroundColor: theme.palette.primary.main,
   color: theme.palette.secondary.main,
   "&:hover": {
-    backgroundColor: theme.palette.success.main,
+    backgroundColor: theme.palette.primary.main,
     filter: "brightness(1.08)",
   },
 }));
@@ -50,7 +50,9 @@ const PlusCircle = styled(IconButton)(({ theme }) => ({
   border: `1.5px solid ${theme.palette.text.secondary}`,
   color: theme.palette.text.primary,
   "&:hover": {
-    borderColor: theme.palette.text.primary,
+    color: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
+    backgroundColor: "transparent",
   },
 }));
 
@@ -141,6 +143,7 @@ export default function SongDetailContents({
     message: string;
   }>({ open: false, severity: "error", message: "" });
 
+  const artistId = track.artists?.[0]?.id ?? artist?.id ?? "";
   const artistName = track.artists?.[0]?.name ?? artist?.name ?? "";
   const artistImage = artist?.images?.[0]?.url;
 
@@ -164,9 +167,9 @@ export default function SongDetailContents({
     };
   }, [dropboxOpen]);
 
-  const goArtistSearch = () => {
-    if (!artistName) return;
-    navigate(`/search/${encodeURIComponent(artistName)}`);
+  const goArtist = () => {
+    if (!artistId) return;
+    navigate(`/artist/${artistId}`);
   };
 
   const handlePlusClick = () => {
@@ -189,13 +192,14 @@ export default function SongDetailContents({
         <PlayCircle aria-label="재생">
           <PlayArrowIcon sx={{ fontSize: 32 }} />
         </PlayCircle>
-        <div ref={plusRootRef} style={{ position: "relative" }}>
+        <div ref={plusRootRef}>
           <PlusCircle aria-label="플레이리스트에 추가" onClick={handlePlusClick}>
             <AddIcon fontSize="small" />
           </PlusCircle>
           {dropboxOpen ? (
             <PlaylistDropbox
               trackUri={track.uri}
+              anchorEl={plusRootRef.current}
               onClose={() => setDropboxOpen(false)}
               onAdded={() =>
                 setToast({
@@ -221,7 +225,7 @@ export default function SongDetailContents({
       </LyricsSection>
 
       {artistName ? (
-        <ArtistCard type="button" onClick={goArtistSearch}>
+        <ArtistCard type="button" onClick={goArtist}>
           <ArtistImage src={artistImage} alt={artistName} />
           <ArtistInfo>
             <Typography variant="body2" color="text.secondary">

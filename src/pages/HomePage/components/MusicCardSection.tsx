@@ -1,14 +1,12 @@
 import styled from "@emotion/styled";
-import MusicCardList from "./MusicCardList";
 import { Typography } from "@mui/material";
-import LoadingSpinner from "../../../common/components/LoadingSpinner/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../../common/components/ErrorMessage";
+import LoadingSpinner from "../../../common/components/LoadingSpinner/LoadingSpinner";
 import { useGetSearchAlbums } from "../../../hooks/useAlbums";
+import MusicCardList from "./MusicCardList";
 
-// import HomeMock from "../HomeMock.json";
-// import type { AlbumResponse } from "../../../types/apiType";
-
-const RizeMusic = styled("div")({
+const SectionRoot = styled("div")({
   width: "100%",
   height: "100%",
   display: "flex",
@@ -16,23 +14,26 @@ const RizeMusic = styled("div")({
   gap: "16px",
 });
 
-// const data = HomeMock as AlbumResponse;
-
-const RizeMusics = () => {
+const RisingAlbums = () => {
+  const navigate = useNavigate();
   const { data, isLoading, error } = useGetSearchAlbums();
 
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error.message} />;
 
-  return <MusicCardList albums={data?.albums.items || []} />;
+  return (
+    <MusicCardList
+      albums={data?.albums.items || []}
+      onAlbumClick={(album) => navigate(`/album/${album.id}`)}
+    />
+  );
 };
 
 export default function MusicCardSection({ title }: { title: string }) {
   return (
-    <RizeMusic>
+    <SectionRoot>
       <Typography variant="h3">{title}</Typography>
-      <RizeMusics />
-      {/* <MusicCardList albums={data.albums.items || []} /> */}
-    </RizeMusic>
+      <RisingAlbums />
+    </SectionRoot>
   );
 }

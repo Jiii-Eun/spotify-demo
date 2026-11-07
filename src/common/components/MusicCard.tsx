@@ -79,12 +79,17 @@ const ArtistName = styled("div")(({ theme }) => ({
   textOverflow: "ellipsis",
 }));
 
-export default function MusicCard({ album, index }: MusicCardProps) {
+export default function MusicCard({ album, index, onClick }: MusicCardProps) {
   const coverUrl = album.images[0]?.url ?? "";
   const artistName = album.artists[0]?.name ?? "";
 
   return (
-    <CardRoot className="music-card">
+    <CardRoot
+      className="music-card"
+      onClick={onClick}
+      role={onClick ? "button" : undefined}
+      style={onClick ? { cursor: "pointer" } : undefined}
+    >
       <CardBackground className="card-background" colorIndex={index} />
       <CardBody>
         <CoverFrame>

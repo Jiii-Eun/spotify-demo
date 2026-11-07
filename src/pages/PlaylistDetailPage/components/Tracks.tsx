@@ -15,14 +15,17 @@ const TableRoot = styled("div")({
   overflow: "hidden",
 });
 
-const HeaderRow = styled("div")(({ theme }) => ({
+const HeaderRow = styled("div", {
+  shouldForwardProp: (prop) => prop !== "showAddedAt",
+})<{ showAddedAt: boolean }>(({ theme, showAddedAt }) => ({
   position: "sticky",
   top: 0,
   zIndex: 2,
   flexShrink: 0,
   display: "grid",
-  gridTemplateColumns:
-    "40px minmax(180px, 4fr) minmax(120px, 2fr) minmax(100px, 1fr) minmax(100px, 1fr)",
+  gridTemplateColumns: showAddedAt
+    ? "40px minmax(180px, 4fr) minmax(120px, 2fr) minmax(100px, 1fr) minmax(100px, 1fr)"
+    : "40px minmax(180px, 4fr) minmax(120px, 2fr) minmax(100px, 1fr)",
   alignItems: "center",
   columnGap: 16,
   width: "100%",
@@ -105,19 +108,23 @@ const TrackRowWrap = styled("div")({
 export default function Tracks({
   tracks,
   ref,
+  showAddedAt = true,
 }: {
   tracks: PlaylistItem[];
   ref?: Ref<HTMLDivElement>;
+  showAddedAt?: boolean;
 }) {
   return (
     <TableRoot>
-      <HeaderRow role="row">
+      <HeaderRow role="row" showAddedAt={showAddedAt}>
         <IndexHeader className="tracks-header-index">#</IndexHeader>
         <HeaderCell>제목</HeaderCell>
         <DividedHeader className="tracks-header-album">앨범</DividedHeader>
-        <DividedHeader className="tracks-header-added-at">
-          추가한 날짜
-        </DividedHeader>
+        {showAddedAt ? (
+          <DividedHeader className="tracks-header-added-at">
+            추가한 날짜
+          </DividedHeader>
+        ) : null}
         <DurationHeader>
           <AccessTimeIcon sx={durationIconSx} />
           <ArrowDropDownIcon sx={sortIconSx} />
@@ -127,7 +134,7 @@ export default function Tracks({
       <TrackList>
         {tracks.map((track) => (
           <TrackRowWrap key={track.item.id}>
-            <TrackItem track={track} />
+            <TrackItem track={track} showAddedAt={showAddedAt} />
           </TrackRowWrap>
         ))}
         <div ref={ref} />

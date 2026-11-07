@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import type { SearchAudiobooks } from "../../../types/searchType";
 import SlideSquareList from "./SlideSquareList";
 
@@ -15,6 +16,8 @@ type AudiobooksProps = {
 };
 
 export default function Audiobooks({ audiobooks }: AudiobooksProps) {
+  const navigate = useNavigate();
+
   if (!audiobooks.length) return null;
 
   const items = audiobooks.map((book) => ({
@@ -29,7 +32,10 @@ export default function Audiobooks({ audiobooks }: AudiobooksProps) {
   return (
     <Section>
       <Typography variant="h3">오디오북</Typography>
-      <SlideSquareList items={items} />
+      <SlideSquareList
+        items={items}
+        onItemClick={(item) => navigate(`/audiobook/${item.id}`)}
+      />
     </Section>
   );
 }

@@ -107,12 +107,19 @@ const Subtitle = styled("div")(({ theme }) => ({
 function SquareCard({
   item,
   index,
+  onClick,
 }: {
   item: SlideSquareItem;
   index: number;
+  onClick?: () => void;
 }) {
   return (
-    <CardRoot className="music-card">
+    <CardRoot
+      className="music-card"
+      onClick={onClick}
+      role={onClick ? "button" : undefined}
+      style={onClick ? { cursor: "pointer" } : undefined}
+    >
       <CardBackground colorIndex={index} />
       <CardBody>
         <CoverFrame>
@@ -128,9 +135,13 @@ function SquareCard({
 
 type SlideSquareListProps = {
   items: SlideSquareItem[];
+  onItemClick?: (item: SlideSquareItem) => void;
 };
 
-export default function SlideSquareList({ items }: SlideSquareListProps) {
+export default function SlideSquareList({
+  items,
+  onItemClick,
+}: SlideSquareListProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const [showLeft, setShowLeft] = useState(false);
@@ -206,7 +217,13 @@ export default function SlideSquareList({ items }: SlideSquareListProps) {
         <Grid container wrap="nowrap" columnSpacing={2}>
           {items.map((item, index) => (
             <Grid key={item.id} sx={{ flex: "0 0 180px" }}>
-              <SquareCard item={item} index={index} />
+              <SquareCard
+                item={item}
+                index={index}
+                onClick={
+                  onItemClick ? () => onItemClick(item) : undefined
+                }
+              />
             </Grid>
           ))}
         </Grid>

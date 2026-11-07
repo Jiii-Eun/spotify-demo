@@ -12,10 +12,14 @@ const Root = styled("div")({
 
 const PlusButton = styled(IconButton)(({ theme }) => ({
   padding: 4,
-  color: theme.palette.primary.main,
+  color: theme.palette.text.primary,
+  "& .song-plus-icon": {
+    border: "1.5px solid currentColor",
+    borderRadius: "50%",
+  },
   "&:hover": {
     backgroundColor: "transparent",
-    filter: "brightness(1.15)",
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -56,9 +60,12 @@ export default function SongPlusIcon({
     };
 
     const handlePointerDown = (event: MouseEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) {
-        close();
-      }
+      const target = event.target as Node;
+      const inTrigger = rootRef.current?.contains(target);
+      const inMenu =
+        target instanceof Element &&
+        Boolean(target.closest('[role="menu"]'));
+      if (!inTrigger && !inMenu) close();
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -104,19 +111,13 @@ export default function SongPlusIcon({
         onClick={handleClick}
         size="small"
       >
-        <AddIcon
-          fontSize="small"
-          sx={{
-            border: "1.5px solid",
-            borderColor: "primary.main",
-            borderRadius: "50%",
-          }}
-        />
+        <AddIcon fontSize="small" className="song-plus-icon" />
       </PlusButton>
 
       {open ? (
         <PlaylistDropbox
           trackUri={trackUri}
+          anchorEl={rootRef.current}
           onClose={() => setDropboxOpen(false)}
           onAdded={handleAdded}
         />

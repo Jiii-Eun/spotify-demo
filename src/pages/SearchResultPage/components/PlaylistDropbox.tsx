@@ -1,6 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase, Typography, styled } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { useInView } from "react-intersection-observer";
 import {
   useGetUserPlaylists,
@@ -8,13 +9,15 @@ import {
 } from "../../../hooks/usePlaylist";
 import type { Playlist } from "../../../types/playlistType";
 
+const PANEL_WIDTH = 320;
+const PANEL_MAX_HEIGHT = 360;
+const GAP = 8;
+
 const Panel = styled("div")(({ theme }) => ({
-  position: "absolute",
-  top: "calc(100% + 8px)",
-  right: 0,
-  zIndex: 20,
-  width: 320,
-  maxHeight: 360,
+  position: "fixed",
+  zIndex: 1400,
+  width: PANEL_WIDTH,
+  maxHeight: PANEL_MAX_HEIGHT,
   display: "flex",
   flexDirection: "column",
   gap: 8,
@@ -131,19 +134,51 @@ const EmptyText = styled(Typography)(({ theme }) => ({
   fontSize: 13,
 }));
 
+type PanelPosition = {
+  top: number;
+  left: number;
+};
+
+function getPanelPosition(anchor: HTMLElement): PanelPosition {
+  const rect = anchor.getBoundingClientRect();
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  let left = rect.left;
+  if (left + PANEL_WIDTH > viewportWidth - GAP) {
+    left = rect.right - PANEL_WIDTH;
+  }
+  left = Math.max(GAP, left);
+
+  let top = rect.bottom + GAP;
+  if (top + PANEL_MAX_HEIGHT > viewportHeight - GAP) {
+    const above = rect.top - GAP - PANEL_MAX_HEIGHT;
+    if (above >= GAP) {
+      top = above;
+    } else {
+      top = Math.max(GAP, viewportHeight - PANEL_MAX_HEIGHT - GAP);
+    }
+  }
+
+  return { top, left };
+}
+
 type PlaylistDropboxProps = {
   trackUri: string;
+  anchorEl: HTMLElement | null;
   onClose: () => void;
   onAdded?: () => void;
 };
 
 export default function PlaylistDropbox({
   trackUri,
+  anchorEl,
   onClose,
   onAdded,
 }: PlaylistDropboxProps) {
   const [filter, setFilter] = useState("");
   const [scrollRoot, setScrollRoot] = useState<HTMLDivElement | null>(null);
+  const [position, setPosition] = useState<PanelPosition | null>(null);
 
   const {
     data,
@@ -160,6 +195,23 @@ export default function PlaylistDropbox({
     rootMargin: "80px 0px",
     skip: !scrollRoot,
   });
+
+  useLayoutEffect(() => {
+    if (!anchorEl) {
+      setPosition(null);
+      return;
+    }
+
+    const update = () => setPosition(getPanelPosition(anchorEl));
+    update();
+
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, true);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update, true);
+    };
+  }, [anchorEl]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -193,9 +245,12 @@ export default function PlaylistDropbox({
     );
   };
 
-  return (
+  if (!anchorEl || !position) return null;
+
+  return createPortal(
     <Panel
       role="menu"
+      style={{ top: position.top, left: position.left }}
       onMouseDown={(event) => {
         event.stopPropagation();
       }}
@@ -251,6 +306,7 @@ export default function PlaylistDropbox({
         )}
         <Sentinel ref={ref} />
       </List>
-    </Panel>
+    </Panel>,
+    document.body,
   );
 }

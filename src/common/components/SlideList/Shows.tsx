@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import type { SearchShow } from "../../../types/searchType";
 import SlideSquareList from "./SlideSquareList";
 
@@ -15,6 +16,8 @@ type ShowsProps = {
 };
 
 export default function Shows({ shows }: ShowsProps) {
+  const navigate = useNavigate();
+
   if (!shows.length) return null;
 
   const items = shows.map((show) => ({
@@ -27,7 +30,10 @@ export default function Shows({ shows }: ShowsProps) {
   return (
     <Section>
       <Typography variant="h3">쇼</Typography>
-      <SlideSquareList items={items} />
+      <SlideSquareList
+        items={items}
+        onItemClick={(item) => navigate(`/show/${item.id}`)}
+      />
     </Section>
   );
 }

@@ -3,7 +3,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Grid, IconButton, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useEffect, useRef, useState } from "react";
-import PlayButton from "../../../common/components/PlayButton";
+import { useNavigate } from "react-router-dom";
+import PlayButton from "../PlayButton";
 import type { SearchExternal } from "../../../types/searchType";
 
 const CARD_STEP = 196;
@@ -83,11 +84,21 @@ type ArtistProps = {
   artists: SearchExternal[];
 };
 
-function ArtistCard({ artist }: { artist: SearchExternal }) {
+function ArtistCard({
+  artist,
+  onClick,
+}: {
+  artist: SearchExternal;
+  onClick?: () => void;
+}) {
   const imageUrl = artist.images[0]?.url ?? "";
 
   return (
-    <CardRoot className="music-card">
+    <CardRoot
+      className="music-card"
+      onClick={onClick}
+      role={onClick ? "button" : undefined}
+    >
       <CardBody>
         <CoverFrame>
           <Cover src={imageUrl} alt={artist.name} />
@@ -103,6 +114,7 @@ function ArtistCard({ artist }: { artist: SearchExternal }) {
 }
 
 export default function Artist({ artists }: ArtistProps) {
+  const navigate = useNavigate();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const [showLeft, setShowLeft] = useState(false);
@@ -182,7 +194,10 @@ export default function Artist({ artists }: ArtistProps) {
           <Grid container wrap="nowrap" columnSpacing={2}>
             {artists.map((artist) => (
               <Grid key={artist.id} sx={{ flex: "0 0 180px" }}>
-                <ArtistCard artist={artist} />
+                <ArtistCard
+                  artist={artist}
+                  onClick={() => navigate(`/artist/${artist.id}`)}
+                />
               </Grid>
             ))}
           </Grid>

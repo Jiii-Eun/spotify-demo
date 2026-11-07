@@ -21,7 +21,10 @@ const Scroller = styled("div")({
   },
 });
 
-export default function MusicCardList({ albums }: MusicCardListProps) {
+export default function MusicCardList({
+  albums,
+  onAlbumClick,
+}: MusicCardListProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const [showLeft, setShowLeft] = useState(false);
@@ -97,7 +100,13 @@ export default function MusicCardList({ albums }: MusicCardListProps) {
         <Grid container wrap="nowrap" columnSpacing={2}>
           {albums.map((album, index) => (
             <Grid key={album.id} sx={{ flex: "0 0 180px" }}>
-              <MusicCard album={album} index={index} />
+              <MusicCard
+                album={album}
+                index={index}
+                onClick={
+                  onAlbumClick ? () => onAlbumClick(album) : undefined
+                }
+              />
             </Grid>
           ))}
         </Grid>

@@ -86,6 +86,8 @@ export default function TopResult({ item }: TopResultProps) {
   const handleClick = () => {
     if (item.kind === "track") {
       navigate(`/track/${item.data.id}`);
+    } else if (item.kind === "artist") {
+      navigate(`/artist/${item.data.id}`);
     }
   };
 

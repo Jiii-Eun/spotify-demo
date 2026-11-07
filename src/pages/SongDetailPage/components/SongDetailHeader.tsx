@@ -150,9 +150,10 @@ export default function SongDetailHeader({
   const year = track.album?.release_date?.slice(0, 4) ?? "";
   const albumName = track.album?.name ?? "";
 
-  const goArtistSearch = () => {
-    if (!artistName) return;
-    navigate(`/search/${encodeURIComponent(artistName)}`);
+  const goArtist = () => {
+    const artistId = primaryArtist?.id ?? artist?.id;
+    if (!artistId) return;
+    navigate(`/artist/${artistId}`);
   };
 
   return (
@@ -163,7 +164,7 @@ export default function SongDetailHeader({
         <Title>{track.name}</Title>
         <Meta>
           {artistName ? (
-            <ArtistButton type="button" onClick={goArtistSearch}>
+            <ArtistButton type="button" onClick={goArtist}>
               <ArtistAvatar src={artistImage} alt={artistName} />
               <MetaStrong>{artistName}</MetaStrong>
             </ArtistButton>

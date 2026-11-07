@@ -1,13 +1,13 @@
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GlobalStyles, IconButton, styled, Typography } from "@mui/material";
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { useNavigate } from "react-router-dom";
 import type {
   PlaylistItem,
   PlaylistTrackItem,
 } from "../../../types/playlistType";
+import SongPlusIcon from "../../SearchResultPage/components/SongPlusIcon";
 
 const trackListCounterStyles = {
   "div:has(> div > .playlist-track-row)": {
@@ -33,72 +33,78 @@ const setActiveTrackId = (id: string) => {
 };
 
 const Row = styled("div", {
-  shouldForwardProp: (prop) => prop !== "isActive",
-})<{ isActive: boolean }>(({ theme, isActive }) => ({
-  display: "grid",
-  gridTemplateColumns:
-    "40px minmax(180px, 4fr) minmax(120px, 2fr) minmax(100px, 1fr) minmax(100px, 1fr)",
-  alignItems: "center",
-  columnGap: 16,
-  width: "100%",
-  minWidth: 0,
-  boxSizing: "border-box",
-  padding: "8px 16px",
-  borderRadius: 4,
-  cursor: "pointer",
-  counterIncrement: "playlist-track",
-  backgroundColor: isActive ? theme.palette.background.black100 : "transparent",
-  "&:hover": {
+  shouldForwardProp: (prop) =>
+    prop !== "isActive" && prop !== "showAddedAt" && prop !== "menuOpen",
+})<{ isActive: boolean; showAddedAt: boolean; menuOpen: boolean }>(
+  ({ theme, isActive, showAddedAt, menuOpen }) => ({
+    display: "grid",
+    gridTemplateColumns: showAddedAt
+      ? "40px minmax(180px, 4fr) minmax(120px, 2fr) minmax(100px, 1fr) minmax(100px, 1fr)"
+      : "40px minmax(180px, 4fr) minmax(120px, 2fr) minmax(100px, 1fr)",
+    alignItems: "center",
+    columnGap: 16,
+    width: "100%",
+    minWidth: 0,
+    boxSizing: "border-box",
+    padding: "8px 16px",
+    borderRadius: 4,
+    cursor: "pointer",
+    counterIncrement: "playlist-track",
     backgroundColor: isActive
       ? theme.palette.background.black100
-      : theme.palette.background.black300,
-    "& .track-index": {
-      display: "none",
+      : "transparent",
+    "&:hover": {
+      backgroundColor: isActive
+        ? theme.palette.background.black100
+        : theme.palette.background.black300,
+      "& .track-index": {
+        display: "none",
+      },
+      "& .track-play": {
+        display: "inline-flex",
+      },
+      "& .track-actions": {
+        opacity: 1,
+      },
     },
-    "& .track-play": {
-      display: "inline-flex",
+    ...((isActive || menuOpen) && {
+      "& .track-index": {
+        display: "none",
+      },
+      "& .track-play": {
+        display: "inline-flex",
+      },
+      "& .track-actions": {
+        opacity: 1,
+      },
+    }),
+    [theme.breakpoints.down("md")]: {
+      gridTemplateColumns: "40px minmax(0, 1fr) auto",
+      columnGap: 12,
+      padding: "8px 12px",
+      "& .track-album, & .track-added-at": {
+        display: "none",
+      },
+      "& .track-actions-more": {
+        opacity: 1,
+      },
     },
-    "& .track-actions": {
-      opacity: 1,
-    },
-  },
-  ...(isActive && {
-    "& .track-index": {
-      display: "none",
-    },
-    "& .track-play": {
-      display: "inline-flex",
-    },
-    "& .track-actions": {
-      opacity: 1,
+    [theme.breakpoints.down("sm")]: {
+      gridTemplateColumns: "minmax(0, 1fr) auto",
+      columnGap: 8,
+      padding: "6px 4px",
+      "& .track-index-cell": {
+        display: "none",
+      },
+      "& .track-duration": {
+        display: "none",
+      },
+      "& .track-actions-check": {
+        opacity: 1,
+      },
     },
   }),
-  [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "40px minmax(0, 1fr) auto",
-    columnGap: 12,
-    padding: "8px 12px",
-    "& .track-album, & .track-added-at": {
-      display: "none",
-    },
-    "& .track-actions-check": {
-      display: "none",
-    },
-    "& .track-actions-more": {
-      opacity: 1,
-    },
-  },
-  [theme.breakpoints.down("sm")]: {
-    gridTemplateColumns: "minmax(0, 1fr) auto",
-    columnGap: 8,
-    padding: "6px 4px",
-    "& .track-index-cell": {
-      display: "none",
-    },
-    "& .track-duration": {
-      display: "none",
-    },
-  },
-}));
+);
 
 const IndexCell = styled("div")(({ theme }) => ({
   display: "flex",
@@ -228,10 +234,6 @@ const actionIconSx = {
   },
 };
 
-const checkIconSx = {
-  fontSize: 18,
-  color: "primary.main",
-};
 const moreIconSx = {
   fontSize: 20,
 };
@@ -267,8 +269,15 @@ const formatAddedAt = (addedAt: Date | string) => {
   });
 };
 
-export default function TrackItem({ track }: { track: PlaylistItem }) {
+export default function TrackItem({
+  track,
+  showAddedAt = true,
+}: {
+  track: PlaylistItem;
+  showAddedAt?: boolean;
+}) {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
   const item = track.item as PlaylistTrackItem;
   const activeId = useSyncExternalStore(
     subscribeActiveTrack,
@@ -276,7 +285,7 @@ export default function TrackItem({ track }: { track: PlaylistItem }) {
     () => null,
   );
   const isActive = activeId === item.id;
-  const { album, artists, name, duration_ms, explicit, id } = item;
+  const { album, artists, name, duration_ms, explicit, id, uri } = item;
   const coverUrl = album?.images?.[0]?.url;
   const artistNames = artists?.map((artist) => artist.name).join(", ") ?? "";
 
@@ -286,6 +295,8 @@ export default function TrackItem({ track }: { track: PlaylistItem }) {
       <Row
         className="playlist-track-row"
         isActive={isActive}
+        showAddedAt={showAddedAt}
+        menuOpen={menuOpen}
         onClick={() => {
           setActiveTrackId(id);
           if (id) navigate(`/track/${id}`);
@@ -321,21 +332,21 @@ export default function TrackItem({ track }: { track: PlaylistItem }) {
         </TitleCell>
 
         <MetaText className="track-album">{album?.name ?? ""}</MetaText>
-        <MetaText className="track-added-at">
-          {formatAddedAt(track.added_at)}
-        </MetaText>
+        {showAddedAt ? (
+          <MetaText className="track-added-at">
+            {formatAddedAt(track.added_at)}
+          </MetaText>
+        ) : null}
 
         <DurationCell>
-          <Actions className="track-actions track-actions-check">
-            <IconButton
-              size="small"
-              aria-label="저장됨"
-              sx={actionIconSx}
+          {uri ? (
+            <Actions
+              className="track-actions track-actions-check"
               onClick={(event) => event.stopPropagation()}
             >
-              <CheckCircleIcon sx={checkIconSx} />
-            </IconButton>
-          </Actions>
+              <SongPlusIcon trackUri={uri} onOpenChange={setMenuOpen} />
+            </Actions>
+          ) : null}
           <Typography
             className="track-duration"
             component="span"

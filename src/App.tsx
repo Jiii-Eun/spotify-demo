@@ -18,6 +18,21 @@ const PlaylistDetailPage = lazy(
 const SongDetailPage = lazy(
   () => import("./pages/SongDetailPage/SongDetailPage"),
 );
+const ShowDetailPage = lazy(
+  () => import("./pages/ShowDetailPage/ShowDetailPage"),
+);
+const EpisodeDetailPage = lazy(
+  () => import("./pages/EpisodeDetailPage/EpisodeDetailPage"),
+);
+const AlbumDetailPage = lazy(
+  () => import("./pages/AlbumDetailPage/AlbumDetailPage"),
+);
+const ArtistDetailPage = lazy(
+  () => import("./pages/ArtistDetailPage/ArtistDetailPage"),
+);
+const AudiobookDetailPage = lazy(
+  () => import("./pages/AudiobookDetailPage/AudiobookDetailPage"),
+);
 
 // 0. 레이아웃 - 사이드바(플레이 리스트, 메뉴)
 // 1. 홈페이지 `/`
@@ -78,6 +93,11 @@ function App() {
             <Route path="search/:query" element={<SearchResultPage />} />
             <Route path="playlist/:id" element={<PlaylistDetailPage />} />
             <Route path="track/:id" element={<SongDetailPage />} />
+            <Route path="album/:id" element={<AlbumDetailPage />} />
+            <Route path="artist/:id" element={<ArtistDetailPage />} />
+            <Route path="show/:id" element={<ShowDetailPage />} />
+            <Route path="episode/:id" element={<EpisodeDetailPage />} />
+            <Route path="audiobook/:id" element={<AudiobookDetailPage />} />
             {/* <Route path="/playlist" element={<LibraryPage />} /> */}
           </Route>
           <Route path="*" element={<NotFoundPage />} />

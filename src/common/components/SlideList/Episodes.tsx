@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import type { SearchEpisode } from "../../../types/searchType";
 import SlideSquareList from "./SlideSquareList";
 
@@ -15,6 +16,8 @@ type EpisodesProps = {
 };
 
 export default function Episodes({ episodes }: EpisodesProps) {
+  const navigate = useNavigate();
+
   if (!episodes.length) return null;
 
   const items = episodes.map((episode) => ({
@@ -27,7 +30,10 @@ export default function Episodes({ episodes }: EpisodesProps) {
   return (
     <Section>
       <Typography variant="h3">에피소드</Typography>
-      <SlideSquareList items={items} />
+      <SlideSquareList
+        items={items}
+        onItemClick={(item) => navigate(`/episode/${item.id}`)}
+      />
     </Section>
   );
 }
