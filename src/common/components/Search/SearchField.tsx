@@ -56,6 +56,11 @@ const SearchContainer = styled("div", {
         backgroundColor: theme.palette.background.black300,
         border: `1px solid ${theme.palette.secondary.main}`,
       },
+      [theme.breakpoints.down("sm")]: {
+        maxWidth: "100%",
+        padding: "6px 10px",
+        gap: 6,
+      },
     };
   }
 

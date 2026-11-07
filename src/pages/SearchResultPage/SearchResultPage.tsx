@@ -10,14 +10,18 @@ import TopResult, { type TopResultItem } from "./components/TopResult";
 import Artist from "../../common/components/SlideList/Artist";
 import Albums from "../../common/components/SlideList/Albums";
 
-const Page = styled("div")({
+const Page = styled("div")(({ theme }) => ({
   width: "100%",
   display: "flex",
   flexDirection: "column",
   gap: 32,
   padding: "16px 0 48px",
   boxSizing: "border-box",
-});
+  [theme.breakpoints.down("sm")]: {
+    gap: 24,
+    padding: "8px 0 32px",
+  },
+}));
 
 const TopGrid = styled("div")(({ theme }) => ({
   display: "grid",
@@ -26,6 +30,7 @@ const TopGrid = styled("div")(({ theme }) => ({
   alignItems: "start",
   [theme.breakpoints.down("md")]: {
     gridTemplateColumns: "1fr",
+    gap: 20,
   },
 }));
 

@@ -26,6 +26,12 @@ const HeaderRoot = styled("div", {
         ${theme.palette.background.black300} 0%,
         ${theme.palette.background.paper} 100%
       )`,
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 16,
+    padding: "16px 12px 16px",
+  },
 }));
 
 const Cover = styled("div")(({ theme }) => ({
@@ -53,6 +59,11 @@ const Cover = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     width: 152,
     height: 152,
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: 120,
+    height: 120,
+    alignSelf: "center",
   },
 }));
 
@@ -93,7 +104,7 @@ const CoverOverlayText = styled("div")({
   fontWeight: 700,
 });
 
-const Info = styled("div")({
+const Info = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "flex-end",
@@ -101,7 +112,12 @@ const Info = styled("div")({
   minWidth: 0,
   flex: 1,
   paddingBottom: 4,
-});
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    paddingBottom: 0,
+    gap: 8,
+  },
+}));
 
 const TypeLabel = styled("div")(({ theme }) => ({
   fontSize: 13,
@@ -121,6 +137,13 @@ const Title = styled("h1")(({ theme }) => ({
   whiteSpace: "nowrap",
   [theme.breakpoints.down("md")]: {
     fontSize: 36,
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: 24,
+    whiteSpace: "normal",
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
   },
 }));
 

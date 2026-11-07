@@ -27,6 +27,7 @@ const Row = styled("div", {
   padding: "8px 12px",
   borderRadius: 8,
   cursor: "pointer",
+  minWidth: 0,
   "&:hover": {
     backgroundColor: theme.palette.background.black300,
   },
@@ -36,6 +37,13 @@ const Row = styled("div", {
   },
   "&:hover .song-plus": {
     opacity: 1,
+  },
+  [theme.breakpoints.down("sm")]: {
+    gap: 8,
+    padding: "8px 4px",
+    "& .song-plus": {
+      opacity: 1,
+    },
   },
 }));
 

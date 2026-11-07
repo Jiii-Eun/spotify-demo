@@ -43,7 +43,7 @@ const HeaderRow = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     gridTemplateColumns: "minmax(0, 1fr) auto",
     columnGap: 8,
-    padding: "6px 8px",
+    padding: "6px 4px",
     "& .tracks-header-index": {
       display: "none",
     },

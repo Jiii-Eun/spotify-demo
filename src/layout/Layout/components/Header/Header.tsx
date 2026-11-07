@@ -1,7 +1,8 @@
-import { styled } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { IconButton, styled } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import LoginButton from "./LoginButton";
 import SearchField from "../../../../common/components/Search/SearchField";
+import LoginButton from "./LoginButton";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   height: "100%",
@@ -21,8 +22,17 @@ const HeaderLeft = styled("div")(({ theme }) => ({
   flex: 1,
   minWidth: 0,
   [theme.breakpoints.down("sm")]: {
-    marginLeft: 8,
+    marginLeft: 4,
     gap: 8,
+  },
+}));
+
+const MenuButton = styled(IconButton)(({ theme }) => ({
+  display: "none",
+  color: theme.palette.text.primary,
+  flexShrink: 0,
+  [theme.breakpoints.down("sm")]: {
+    display: "inline-flex",
   },
 }));
 
@@ -33,12 +43,27 @@ const Logo = styled("img")(({ theme }) => ({
   borderRadius: "50%",
   backgroundColor: theme.palette.secondary.main,
   flexShrink: 0,
+  [theme.breakpoints.down("sm")]: {
+    width: 36,
+    height: 36,
+  },
 }));
 
-export default function Header() {
+type HeaderProps = {
+  onOpenSidebar?: () => void;
+};
+
+export default function Header({ onOpenSidebar }: HeaderProps) {
   return (
     <HeaderContainer>
       <HeaderLeft>
+        <MenuButton
+          aria-label="라이브러리 열기"
+          onClick={onOpenSidebar}
+          size="small"
+        >
+          <MenuIcon />
+        </MenuButton>
         <h1 style={{ margin: 0 }}>
           <NavLink to="/">
             <Logo src="/logo.png" alt="logo" />

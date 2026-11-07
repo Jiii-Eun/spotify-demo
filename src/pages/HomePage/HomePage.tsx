@@ -11,7 +11,7 @@ import {
 import { useGetHomeSection } from "../../hooks/useSearch";
 import MusicCardSection from "./components/MusicCardSection";
 
-const MusicCardSectionContainer = styled("div")({
+const MusicCardSectionContainer = styled("div")(({ theme }) => ({
   width: "100%",
   height: "100%",
   display: "flex",
@@ -19,7 +19,11 @@ const MusicCardSectionContainer = styled("div")({
   gap: 32,
   paddingBottom: 48,
   boxSizing: "border-box",
-});
+  [theme.breakpoints.down("sm")]: {
+    gap: 24,
+    paddingBottom: 32,
+  },
+}));
 
 export default function HomePage() {
   const artistsQuery = useGetHomeSection(

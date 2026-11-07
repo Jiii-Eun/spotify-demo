@@ -88,6 +88,7 @@ export default function MusicCardList({ albums }: MusicCardListProps) {
         sx={(theme) => ({
           ...arrowSx(showLeft)(theme),
           left: 8,
+          [theme.breakpoints.down("sm")]: { display: "none" },
         })}
       >
         <ChevronLeftIcon />
@@ -107,6 +108,7 @@ export default function MusicCardList({ albums }: MusicCardListProps) {
         sx={(theme) => ({
           ...arrowSx(showRight)(theme),
           right: 8,
+          [theme.breakpoints.down("sm")]: { display: "none" },
         })}
       >
         <ChevronRightIcon />

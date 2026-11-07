@@ -89,7 +89,7 @@ const Row = styled("div", {
   [theme.breakpoints.down("sm")]: {
     gridTemplateColumns: "minmax(0, 1fr) auto",
     columnGap: 8,
-    padding: "6px 8px",
+    padding: "6px 4px",
     "& .track-index-cell": {
       display: "none",
     },

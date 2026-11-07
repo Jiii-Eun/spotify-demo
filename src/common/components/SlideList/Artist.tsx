@@ -173,6 +173,7 @@ export default function Artist({ artists }: ArtistProps) {
           sx={(theme) => ({
             ...arrowSx(showLeft)(theme),
             left: 8,
+            [theme.breakpoints.down("sm")]: { display: "none" },
           })}
         >
           <ChevronLeftIcon />
@@ -192,6 +193,7 @@ export default function Artist({ artists }: ArtistProps) {
           sx={(theme) => ({
             ...arrowSx(showRight)(theme),
             right: 8,
+            [theme.breakpoints.down("sm")]: { display: "none" },
           })}
         >
           <ChevronRightIcon />
